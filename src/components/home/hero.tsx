@@ -1,0 +1,214 @@
+"use client";
+
+import Image from "next/image";
+import profilePicHover from "@/assets/images/profile-final.png";
+import { BackgroundGradient } from "@/components/ui/background-gradient";
+import { HeroConstellation } from "@/components/ui/hero-constellation";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { ShimmerBorder } from "@/components/ui/shimmer-border";
+import { IconArrowRight } from "@tabler/icons-react";
+import { ProgrammerCoding } from "@/components/icon/ProgrammerCoding";
+
+import React, { useRef, useState } from "react";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { data } from "@/data/data";
+
+export default function Hero() {
+    const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
+
+    const { status, dotColor } = getStatus();
+
+    const handleIconClick = (iconName: string) => {
+        console.log("🚀 ~ handleIconClick ~ iconName:", iconName);
+        setTimeout(() => setWiggleIcon(null), 600);
+    };
+
+    const handleShimmerButtonClick = () => {
+        handleIconClick("email");
+    };
+
+    const ctaRef = useRef<HTMLAnchorElement>(null);
+    const handleCtaMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        const el = ctaRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+        el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+    };
+
+    return (
+        <div className=" relative flex items-center justify-center overflow-hidden space-x-16">
+            <div>
+                <HeroConstellation desktopDots={300} mobileDots={75} />
+                <TooltipProvider delayDuration={200}>
+                    <BlurFade delay={0.005} inView>
+                        <div className="relative flex-col space-y-3">
+                            <div className="relative flex flex-col items-start justify-center">
+                                <ShimmerButton
+                                    onClick={handleShimmerButtonClick}
+                                    className="z-50 mt-8"
+                                >
+                                    <div className="z-50 relative flex items-center justify-center">
+                                        <div
+                                            className={`absolute size-2.5 rounded-full border ${
+                                                dotColor === "green"
+                                                    ? "border-green-600/80 bg-green-500 animate-ping"
+                                                    : "border-orange-600/80 bg-orange-500 animate-ping"
+                                            } mr-2`}
+                                        ></div>
+                                        <div
+                                            className={`relative size-2 rounded-full border ${
+                                                dotColor === "green"
+                                                    ? "border-green-600/80 bg-green-500 animate-pulse"
+                                                    : "border-orange-600/80 bg-orange-500 animate-pulse"
+                                            } mr-2`}
+                                        ></div>
+                                    </div>
+                                    <span className="whitespace-pre-wrap text-center  leading-none text-muted-foreground text-sm sm:text-sm py-[0.5]">
+                                        {status}
+                                    </span>
+                                </ShimmerButton>
+                            </div>
+                            <div className="w-full space-y-6">
+                                <BlurFade delay={0.005 * 1} inView>
+                                    <div className="z-50 subpixel-antialiased text-5xl sm:text-7xl font-bold text-left space-y-3">
+                                        <div className="bg-linear-to-b from-zinc-200 dark:from-zinc-50 to-zinc-950 dark:to-zinc-600 bg-clip-text text-transparent text-6xl pl-1">
+                                            Hello. I&apos;m
+                                        </div>
+                                        <div className="bg-linear-to-b from-zinc-200 dark:from-zinc-50 to-zinc-950 dark:to-zinc-300 bg-clip-text text-8xl text-transparent">
+                                            <span className="font-script font-normal text-[1.05em] leading-none align-baseline">
+                                                Ali Seyedi
+                                            </span>
+                                        </div>
+                                    </div>
+                                </BlurFade>
+                                <BlurFade delay={0.005 * 2} inView>
+                                    <p className="text-base subpixel-antialiased tracking-tight font-medium sm:text-2xl text-left text-white">
+                                        A FullStack Developer who likes{" "}
+                                        <span className="font-script font-normal text-[1.05em] leading-none align-baseline text-amber-200">
+                                            building things
+                                        </span>
+                                    </p>
+                                </BlurFade>
+                                <BlurFade
+                                    delay={0.005 * 2}
+                                    direction="down"
+                                    inView
+                                >
+                                    <div className="z-50 flex flex-row items-center justify-center gap-5">
+                                        <ContactIcons
+                                            wiggleIcon={wiggleIcon}
+                                            handleIconClick={handleIconClick}
+                                        />
+                                        <span
+                                            className="h-5 w-px bg-zinc-300/60 dark:bg-zinc-700/60"
+                                            aria-hidden
+                                        />
+                                        <a
+                                            ref={ctaRef}
+                                            onMouseMove={handleCtaMove}
+                                            href="#projects"
+                                            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-background/40 backdrop-blur-sm px-4 py-1.5 text-sm font-medium  transition-colors hover:text-foreground text-white"
+                                        >
+                                            <span
+                                                aria-hidden
+                                                className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                                                style={{
+                                                    background:
+                                                        "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                                                }}
+                                            />
+                                            <span className="relative">
+                                                View my work
+                                            </span>
+                                            <IconArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                                            <ShimmerBorder />
+                                        </a>
+                                    </div>
+                                </BlurFade>
+                            </div>
+                        </div>
+                    </BlurFade>
+                </TooltipProvider>
+            </div>
+            <BlurFade delay={0.005} inView>
+                <BackgroundGradient className="z-50 size-20 sm:w-8 sm:h-20 md:size-96">
+                    <Image
+                        src={profilePicHover}
+                        alt="Profile Picture Hover"
+                        className="absolute  transition-opacity rounded-full duration-200 "
+                    />
+                </BackgroundGradient>
+            </BlurFade>
+
+            {/* <ProgrammerCoding className={"size-130"} /> */}
+        </div>
+    );
+}
+
+const getStatus = () => {
+    const now = new Date();
+    const localTime = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Los_Angeles",
+        hour: "numeric",
+        hour12: false,
+    }).format(now);
+
+    const currentHour = parseInt(localTime, 10);
+
+    if (currentHour >= 8 && currentHour < 22) {
+        return { status: "Available for new roles", dotColor: "green" };
+    } else {
+        return { status: "Away", dotColor: "amber" };
+    }
+};
+
+const iconClass = (label: string, wiggleIcon: string | null) =>
+    `text-white ${
+        wiggleIcon === label.toLowerCase()
+            ? "animate-wiggle scale-150 transition-transform duration-200"
+            : ""
+    } hover:scale-130 hover:animate-wiggle transition-transform duration-300`;
+
+function ContactIcons({
+    wiggleIcon,
+    handleIconClick,
+}: {
+    wiggleIcon: string | null;
+    handleIconClick: (label: string) => void;
+}) {
+    return (
+        <div className="flex flex-row items-center justify-center space-x-6 text-white">
+            {data.contact.map((link) => (
+                <Tooltip key={link.label}>
+                    <TooltipTrigger asChild>
+                        <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={link.aria}
+                            onClick={() =>
+                                handleIconClick(link.label.toLowerCase())
+                            }
+                            className="inline-block text-white"
+                        >
+                            {React.cloneElement(link.icon, {
+                                className: iconClass(link.label, wiggleIcon),
+                                size: 30,
+                            })}
+                        </a>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="z-50">
+                        {link.label}
+                    </TooltipContent>
+                </Tooltip>
+            ))}
+        </div>
+    );
+}
