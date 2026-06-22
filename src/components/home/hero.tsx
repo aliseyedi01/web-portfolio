@@ -43,7 +43,7 @@ export default function Hero() {
     };
 
     return (
-        <div className=" relative flex items-center justify-center overflow-hidden space-x-16">
+        <div className="relative flex flex-col lg:flex-row items-center justify-center overflow-hidden gap-8 lg:gap-16 px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
             <div>
                 <HeroConstellation desktopDots={300} mobileDots={75} />
                 <TooltipProvider delayDuration={200}>
@@ -52,36 +52,36 @@ export default function Hero() {
                             <div className="relative flex flex-col items-start justify-center">
                                 <ShimmerButton
                                     onClick={handleShimmerButtonClick}
-                                    className="z-50 mt-8"
+                                    className="z-50 mt-4 sm:mt-8"
                                 >
                                     <div className="z-50 relative flex items-center justify-center">
                                         <div
-                                            className={`absolute size-2.5 rounded-full border ${
+                                            className={`absolute size-2 sm:size-2.5 rounded-full border ${
                                                 dotColor === "green"
                                                     ? "border-green-600/80 bg-green-500 animate-ping"
                                                     : "border-orange-600/80 bg-orange-500 animate-ping"
                                             } mr-2`}
                                         ></div>
                                         <div
-                                            className={`relative size-2 rounded-full border ${
+                                            className={`relative size-1.5 sm:size-2 rounded-full border ${
                                                 dotColor === "green"
                                                     ? "border-green-600/80 bg-green-500 animate-pulse"
                                                     : "border-orange-600/80 bg-orange-500 animate-pulse"
                                             } mr-2`}
                                         ></div>
                                     </div>
-                                    <span className="whitespace-pre-wrap text-center  leading-none text-muted-foreground text-sm sm:text-sm py-[0.5]">
+                                    <span className="whitespace-pre-wrap text-center leading-none text-muted-foreground text-xs sm:text-sm py-[0.5]">
                                         {status}
                                     </span>
                                 </ShimmerButton>
                             </div>
-                            <div className="w-full space-y-6">
+                            <div className="w-full space-y-4 sm:space-y-6">
                                 <BlurFade delay={0.005 * 1} inView>
-                                    <div className="z-50 subpixel-antialiased text-5xl sm:text-7xl font-bold text-left space-y-3">
-                                        <div className="bg-linear-to-b from-zinc-200 dark:from-zinc-50 to-zinc-950 dark:to-zinc-600 bg-clip-text text-transparent text-6xl pl-1">
+                                    <div className="z-50 subpixel-antialiased text-4xl sm:text-6xl lg:text-7xl font-bold text-left space-y-2 sm:space-y-3">
+                                        <div className="bg-linear-to-b from-zinc-200 dark:from-zinc-50 to-zinc-950 dark:to-zinc-600 bg-clip-text text-transparent text-4xl sm:text-5xl lg:text-6xl pl-1">
                                             Hello. I&apos;m
                                         </div>
-                                        <div className="bg-linear-to-b from-zinc-200 dark:from-zinc-50 to-zinc-950 dark:to-zinc-300 bg-clip-text text-8xl text-transparent">
+                                        <div className="bg-linear-to-b from-zinc-200 dark:from-zinc-50 to-zinc-950 dark:to-zinc-300 bg-clip-text text-5xl sm:text-7xl lg:text-8xl text-transparent">
                                             <span className="font-script font-normal text-[1.05em] leading-none align-baseline">
                                                 Ali Seyedi
                                             </span>
@@ -89,7 +89,7 @@ export default function Hero() {
                                     </div>
                                 </BlurFade>
                                 <BlurFade delay={0.005 * 2} inView>
-                                    <p className="text-base subpixel-antialiased tracking-tight font-medium sm:text-2xl text-left text-white">
+                                    <p className="text-sm sm:text-base lg:text-2xl subpixel-antialiased tracking-tight font-medium text-left text-white">
                                         A FullStack Developer who likes{" "}
                                         <span className="font-script font-normal text-[1.05em] leading-none align-baseline text-amber-200">
                                             building things
@@ -101,20 +101,24 @@ export default function Hero() {
                                     direction="down"
                                     inView
                                 >
-                                    <div className="z-50 flex flex-row items-center justify-center gap-5">
+                                    <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
                                         <ContactIcons
                                             wiggleIcon={wiggleIcon}
                                             handleIconClick={handleIconClick}
                                         />
                                         <span
-                                            className="h-5 w-px bg-zinc-300/60 dark:bg-zinc-700/60"
+                                            className="hidden sm:block h-5 w-px bg-zinc-300/60 dark:bg-zinc-700/60"
+                                            aria-hidden
+                                        />
+                                        <span
+                                            className="block sm:hidden w-20 h-px bg-zinc-300/60 dark:bg-zinc-700/60"
                                             aria-hidden
                                         />
                                         <a
                                             ref={ctaRef}
                                             onMouseMove={handleCtaMove}
                                             href="#projects"
-                                            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-background/40 backdrop-blur-sm px-4 py-1.5 text-sm font-medium  transition-colors hover:text-foreground text-white"
+                                            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-background/40 backdrop-blur-sm px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium transition-colors hover:text-foreground text-white"
                                         >
                                             <span
                                                 aria-hidden
@@ -127,7 +131,7 @@ export default function Hero() {
                                             <span className="relative">
                                                 View my work
                                             </span>
-                                            <IconArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                                            <IconArrowRight className="relative h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
                                             <ShimmerBorder />
                                         </a>
                                     </div>
@@ -138,12 +142,16 @@ export default function Hero() {
                 </TooltipProvider>
             </div>
             <BlurFade delay={0.005} inView>
-                <BackgroundGradient className="z-50 size-20 sm:w-8 sm:h-20 md:size-96">
-                    <Image
-                        src={profilePicHover}
-                        alt="Profile Picture Hover"
-                        className="absolute  transition-opacity rounded-full duration-200 "
-                    />
+                <BackgroundGradient className="z-50 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
+                    <div className="w-full h-full rounded-full ">
+                        <Image
+                            src={profilePicHover}
+                            alt="Profile Picture Hover"
+                            className="w-full h-full object-cover rounded-full transition-opacity duration-200"
+                            width={384}
+                            height={384}
+                        />
+                    </div>
                 </BackgroundGradient>
             </BlurFade>
 
@@ -184,7 +192,7 @@ function ContactIcons({
     handleIconClick: (label: string) => void;
 }) {
     return (
-        <div className="flex flex-row items-center justify-center space-x-6 text-white">
+        <div className="flex flex-row items-center justify-center space-x-4 sm:space-x-6 text-white">
             {data.contact.map((link) => (
                 <Tooltip key={link.label}>
                     <TooltipTrigger asChild>
@@ -200,7 +208,7 @@ function ContactIcons({
                         >
                             {React.cloneElement(link.icon, {
                                 className: iconClass(link.label, wiggleIcon),
-                                size: 30,
+                                size: window.innerWidth < 640 ? 24 : 30,
                             })}
                         </a>
                     </TooltipTrigger>
