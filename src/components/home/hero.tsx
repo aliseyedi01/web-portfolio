@@ -10,7 +10,7 @@ import { ShimmerBorder } from "@/components/ui/shimmer-border";
 import { IconArrowRight } from "@tabler/icons-react";
 import { ProgrammerCoding } from "@/components/icon/ProgrammerCoding";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Tooltip,
     TooltipContent,
@@ -41,6 +41,19 @@ export default function Hero() {
         el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
         el.style.setProperty("--my", `${e.clientY - rect.top}px`);
     };
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const update = () => {
+            setIsMobile(window.innerWidth < 640);
+        };
+
+        update();
+        window.addEventListener("resize", update);
+
+        return () => window.removeEventListener("resize", update);
+    }, []);
 
     return (
         <div className="relative flex flex-col lg:flex-row items-center justify-center overflow-hidden gap-8 lg:gap-16 px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
@@ -105,6 +118,7 @@ export default function Hero() {
                                         <ContactIcons
                                             wiggleIcon={wiggleIcon}
                                             handleIconClick={handleIconClick}
+                                            isMobile={isMobile}
                                         />
                                         <span
                                             className="hidden sm:block h-5 w-px bg-zinc-300/60 dark:bg-zinc-700/60"
@@ -163,14 +177,15 @@ export default function Hero() {
 const getStatus = () => {
     const now = new Date();
     const localTime = new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/Los_Angeles",
+        timeZone: "Asia/Tehran", // ← Changed to Iran time zone
         hour: "numeric",
         hour12: false,
     }).format(now);
 
     const currentHour = parseInt(localTime, 10);
 
-    if (currentHour >= 8 && currentHour < 22) {
+    if (currentHour >= 8 && currentHour < 12) {
+        // ← Changed to 8 AM - 12 PM
         return { status: "Available for new roles", dotColor: "green" };
     } else {
         return { status: "Away", dotColor: "amber" };
@@ -187,9 +202,11 @@ const iconClass = (label: string, wiggleIcon: string | null) =>
 function ContactIcons({
     wiggleIcon,
     handleIconClick,
+    isMobile,
 }: {
     wiggleIcon: string | null;
     handleIconClick: (label: string) => void;
+    isMobile: boolean;
 }) {
     return (
         <div className="flex flex-row items-center justify-center space-x-4 sm:space-x-6 text-white">
@@ -208,7 +225,7 @@ function ContactIcons({
                         >
                             {React.cloneElement(link.icon, {
                                 className: iconClass(link.label, wiggleIcon),
-                                size: window.innerWidth < 640 ? 24 : 30,
+                                size: isMobile ? 24 : 30,
                             })}
                         </a>
                     </TooltipTrigger>
