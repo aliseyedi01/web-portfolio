@@ -9,9 +9,12 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import * as random from "maath/random";
 import { useState, useRef, Suspense } from "react";
 import type { Points as PointsType } from "three";
+import { useTheme } from "next-themes";
 
 export const StarBackground = (props: PointsInstancesProps) => {
     const ref = useRef<PointsType | null>(null);
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
 
     const [sphere] = useState(() => {
         const count = 5000;
@@ -48,7 +51,7 @@ export const StarBackground = (props: PointsInstancesProps) => {
             >
                 <PointMaterial
                     transparent
-                    color="#4A90D9"
+                    color={isDark ? "#4A90D9" : "#1A1A2E"}
                     size={0.002}
                     sizeAttenuation
                     depthWrite={false}
@@ -58,15 +61,22 @@ export const StarBackground = (props: PointsInstancesProps) => {
     );
 };
 
-export const StarsCanvas = () => (
-    <div className="fixed inset-0 -z-10 h-auto w-full">
-        <Canvas
-            camera={{ position: [0, 0, 1] }}
-            style={{ background: "#030014" }}
-        >
-            <Suspense fallback={null}>
-                <StarBackground />
-            </Suspense>
-        </Canvas>
-    </div>
-);
+export const StarsCanvas = () => {
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
+
+    return (
+        <div className="fixed inset-0 -z-10 h-auto w-full">
+            <Canvas
+                camera={{ position: [0, 0, 1] }}
+                style={{
+                    background: isDark ? "#030014" : "#F0F4FF",
+                }}
+            >
+                <Suspense fallback={null}>
+                    <StarBackground />
+                </Suspense>
+            </Canvas>
+        </div>
+    );
+};

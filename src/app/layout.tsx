@@ -5,6 +5,7 @@ import { StarsCanvas } from "@/components/home/star-background";
 import { Navbar } from "@/components/layout/navbar";
 import { data } from "@/data/data";
 import { ViewTransitions } from "next-view-transitions";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -41,11 +42,17 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
                 suppressHydrationWarning
             >
-                <body className="flex flex-col">
-                    <StarsCanvas />
-                    <Navbar navItems={data.nav} />
-                    {children}
-                </body>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                >
+                    <body className="flex flex-col">
+                        <StarsCanvas />
+                        <Navbar navItems={data.nav} />
+                        {children}
+                    </body>
+                </ThemeProvider>
             </html>
         </ViewTransitions>
     );

@@ -69,14 +69,14 @@ export default function Hero() {
                                 </ShimmerButton>
                             </div>
 
-                            {/* Hero Text */}
+                            {/* Hero Text - Updated with theme colors */}
                             <div className="w-full space-y-4 sm:space-y-6">
                                 <BlurFade delay={0.005 * 1} inView>
                                     <div className="z-50 subpixel-antialiased text-4xl sm:text-6xl lg:text-7xl font-bold text-left space-y-2 sm:space-y-3">
-                                        <div className="bg-linear-to-b from-zinc-200 dark:from-zinc-50 to-zinc-950 dark:to-zinc-600 bg-clip-text text-transparent text-4xl sm:text-5xl lg:text-6xl pl-1">
+                                        <div className="bg-linear-to-b from-muted to-foreground/80 dark:from-muted-foreground/30 dark:to-foreground bg-clip-text text-transparent text-4xl sm:text-5xl lg:text-6xl pl-1">
                                             Hello. I&apos;m
                                         </div>
-                                        <div className="bg-linear-to-b from-zinc-200 dark:from-zinc-50 to-zinc-950 dark:to-zinc-300 bg-clip-text text-5xl sm:text-7xl lg:text-8xl text-transparent">
+                                        <div className="bg-linear-to-b from-primary/60 to-primary dark:from-primary/40 dark:to-primary-foreground bg-clip-text text-5xl sm:text-7xl lg:text-8xl text-transparent">
                                             <span className="font-script font-normal text-[1.05em] leading-none align-baseline">
                                                 Ali Seyedi
                                             </span>
@@ -85,9 +85,9 @@ export default function Hero() {
                                 </BlurFade>
 
                                 <BlurFade delay={0.005 * 2} inView>
-                                    <p className="text-sm sm:text-base lg:text-2xl subpixel-antialiased tracking-tight font-medium text-left text-white">
+                                    <p className="text-sm sm:text-base lg:text-2xl subpixel-antialiased tracking-tight font-medium text-left text-foreground/90">
                                         A FullStack Developer who likes{" "}
-                                        <span className="font-script font-normal text-[1.05em] leading-none align-baseline text-amber-200">
+                                        <span className="font-script font-normal text-[1.05em] leading-none align-baseline text-primary/80 dark:text-primary/70">
                                             building things
                                         </span>
                                     </p>
@@ -102,18 +102,18 @@ export default function Hero() {
                                     <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
                                         <ContactIcons isMobile={isMobile} />
                                         <span
-                                            className="hidden sm:block h-5 w-px bg-zinc-300/60 dark:bg-zinc-700/60"
+                                            className="hidden sm:block h-5 w-px bg-border"
                                             aria-hidden
                                         />
                                         <span
-                                            className="block sm:hidden w-20 h-px bg-zinc-300/60 dark:bg-zinc-700/60"
+                                            className="block sm:hidden w-20 h-px bg-border"
                                             aria-hidden
                                         />
                                         <a
                                             ref={ctaRef}
                                             onMouseMove={handleCtaMove}
                                             href="#projects"
-                                            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-background/40 backdrop-blur-sm px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium transition-colors hover:text-foreground text-white"
+                                            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border bg-background/40 backdrop-blur-sm px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium transition-colors hover:text-foreground text-foreground/80"
                                         >
                                             <span
                                                 aria-hidden
@@ -177,7 +177,7 @@ const getStatus = () => {
 
 const ContactIcons = ({ isMobile }: { isMobile: boolean }) => {
     return (
-        <div className="flex flex-row items-center justify-center space-x-4 sm:space-x-6 text-white">
+        <div className="flex flex-row items-center justify-center space-x-4 sm:space-x-6 text-foreground">
             {data.contact.map((link) => (
                 <Tooltip key={link.label}>
                     <TooltipTrigger asChild>
@@ -186,7 +186,7 @@ const ContactIcons = ({ isMobile }: { isMobile: boolean }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={link.aria}
-                            className="inline-block text-white"
+                            className="inline-block text-foreground"
                         >
                             {React.cloneElement(link.icon, {
                                 className:

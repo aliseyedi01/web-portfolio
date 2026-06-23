@@ -88,11 +88,11 @@ export const Navbar = ({
                         duration: 0.2,
                     }}
                     className={cn(
-                        "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-lg fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg sm:bg-none dark:bg-background/10 sm:dark:bg-background/20 bg-white/30 z-[5000] pr-4 pl-6 py-4 items-center justify-between",
+                        "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-lg fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg sm:bg-none dark:bg-background/10 sm:dark:bg-background/20 bg-background/30 z-[5000] pr-4 pl-6 py-4 items-center justify-between",
                         className,
                     )}
                 >
-                    <div className="flex items-center mr-4 sm:mr-16 text-white">
+                    <div className="flex items-center mr-4 sm:mr-16 text-foreground">
                         <AnimatedLogo
                             theme={resolvedTheme === "dark" ? "light" : "light"}
                             className="w-6 h-6 sm:size-10"
@@ -107,7 +107,7 @@ export const Navbar = ({
                                 key={`link=${idx}`}
                                 onClick={() => handleNavClick(navItem.link)}
                                 className={cn(
-                                    "relative font-semibold text-slate-700 dark:text-muted-foreground items-center flex space-x-1 hover:text-black dark:hover:text-white transition-colors duration-300",
+                                    "relative font-semibold text-muted-foreground items-center flex space-x-1 hover:text-foreground transition-colors duration-300",
                                 )}
                             >
                                 <span className="block sm:hidden">
@@ -120,7 +120,7 @@ export const Navbar = ({
                         ))}
                         <span
                             aria-hidden
-                            className="h-5 w-px self-center bg-zinc-300/60 dark:bg-zinc-700/60"
+                            className="h-5 w-px self-center bg-border"
                         />
                         <a
                             href={repoUrl}
@@ -131,7 +131,7 @@ export const Navbar = ({
                         >
                             <IconBrandGithub className="h-3.5 w-3.5" />
                             <span className="flex items-center gap-0.5 tabular-nums">
-                                <IconStar className="h-3 w-3 transition-colors group-hover:text-amber-400 group-hover:animate-spin-grow" />
+                                <IconStar className="h-3 w-3 transition-colors group-hover:text-primary group-hover:animate-spin-grow" />
                                 {stars}
                             </span>
                         </a>
