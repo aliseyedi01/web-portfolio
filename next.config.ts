@@ -1,11 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    // output: "export", // این خط باعث می‌شود خروجی استاتیک تولید شود
     images: {
-        unoptimized: true, // برای نمایش تصاویر در خروجی استاتیک
+        unoptimized: true,
     },
-    trailingSlash: true, // برای سازگاری با نتلیف
+    trailingSlash: true,
 };
 
 export default nextConfig;
