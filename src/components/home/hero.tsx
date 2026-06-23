@@ -147,6 +147,7 @@ export default function Hero() {
                             className="w-full h-full object-cover rounded-full transition-opacity duration-200"
                             width={384}
                             height={384}
+                            loading="eager"
                         />
                     </div>
                 </BackgroundGradient>
