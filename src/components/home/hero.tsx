@@ -8,8 +8,6 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ShimmerBorder } from "@/components/ui/shimmer-border";
 import { IconArrowRight } from "@tabler/icons-react";
-import { ProgrammerCoding } from "@/components/icon/ProgrammerCoding";
-
 import React, { useEffect, useRef, useState } from "react";
 import {
     Tooltip,
@@ -20,20 +18,17 @@ import {
 import { data } from "@/data/data";
 
 export default function Hero() {
-    const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
-
     const { status, dotColor } = getStatus();
-
-    const handleIconClick = (iconName: string) => {
-        console.log("🚀 ~ handleIconClick ~ iconName:", iconName);
-        setTimeout(() => setWiggleIcon(null), 600);
-    };
-
-    const handleShimmerButtonClick = () => {
-        handleIconClick("email");
-    };
-
     const ctaRef = useRef<HTMLAnchorElement>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const update = () => setIsMobile(window.innerWidth < 640);
+        update();
+        window.addEventListener("resize", update);
+        return () => window.removeEventListener("resize", update);
+    }, []);
+
     const handleCtaMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
         const el = ctaRef.current;
         if (!el) return;
@@ -42,19 +37,6 @@ export default function Hero() {
         el.style.setProperty("--my", `${e.clientY - rect.top}px`);
     };
 
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const update = () => {
-            setIsMobile(window.innerWidth < 640);
-        };
-
-        update();
-        window.addEventListener("resize", update);
-
-        return () => window.removeEventListener("resize", update);
-    }, []);
-
     return (
         <div className="relative flex flex-col lg:flex-row items-center justify-center overflow-hidden gap-8 lg:gap-16 px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
             <div>
@@ -62,11 +44,9 @@ export default function Hero() {
                 <TooltipProvider delayDuration={200}>
                     <BlurFade delay={0.005} inView>
                         <div className="relative flex-col space-y-3">
+                            {/* Status Button */}
                             <div className="relative flex flex-col items-start justify-center">
-                                <ShimmerButton
-                                    onClick={handleShimmerButtonClick}
-                                    className="z-50 mt-4 sm:mt-8"
-                                >
+                                <ShimmerButton className="z-50 mt-4 sm:mt-8">
                                     <div className="z-50 relative flex items-center justify-center">
                                         <div
                                             className={`absolute size-2 sm:size-2.5 rounded-full border ${
@@ -74,20 +54,22 @@ export default function Hero() {
                                                     ? "border-green-600/80 bg-green-500 animate-ping"
                                                     : "border-orange-600/80 bg-orange-500 animate-ping"
                                             } mr-2`}
-                                        ></div>
+                                        />
                                         <div
                                             className={`relative size-1.5 sm:size-2 rounded-full border ${
                                                 dotColor === "green"
                                                     ? "border-green-600/80 bg-green-500 animate-pulse"
                                                     : "border-orange-600/80 bg-orange-500 animate-pulse"
                                             } mr-2`}
-                                        ></div>
+                                        />
                                     </div>
                                     <span className="whitespace-pre-wrap text-center leading-none text-muted-foreground text-xs sm:text-sm py-[0.5]">
                                         {status}
                                     </span>
                                 </ShimmerButton>
                             </div>
+
+                            {/* Hero Text */}
                             <div className="w-full space-y-4 sm:space-y-6">
                                 <BlurFade delay={0.005 * 1} inView>
                                     <div className="z-50 subpixel-antialiased text-4xl sm:text-6xl lg:text-7xl font-bold text-left space-y-2 sm:space-y-3">
@@ -101,6 +83,7 @@ export default function Hero() {
                                         </div>
                                     </div>
                                 </BlurFade>
+
                                 <BlurFade delay={0.005 * 2} inView>
                                     <p className="text-sm sm:text-base lg:text-2xl subpixel-antialiased tracking-tight font-medium text-left text-white">
                                         A FullStack Developer who likes{" "}
@@ -109,17 +92,15 @@ export default function Hero() {
                                         </span>
                                     </p>
                                 </BlurFade>
+
+                                {/* Contact Icons & CTA */}
                                 <BlurFade
                                     delay={0.005 * 2}
                                     direction="down"
                                     inView
                                 >
                                     <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
-                                        <ContactIcons
-                                            wiggleIcon={wiggleIcon}
-                                            handleIconClick={handleIconClick}
-                                            isMobile={isMobile}
-                                        />
+                                        <ContactIcons isMobile={isMobile} />
                                         <span
                                             className="hidden sm:block h-5 w-px bg-zinc-300/60 dark:bg-zinc-700/60"
                                             aria-hidden
@@ -155,9 +136,11 @@ export default function Hero() {
                     </BlurFade>
                 </TooltipProvider>
             </div>
+
+            {/* Profile Image */}
             <BlurFade delay={0.005} inView>
                 <BackgroundGradient className="z-50 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
-                    <div className="w-full h-full rounded-full ">
+                    <div className="w-full h-full rounded-full">
                         <Image
                             src={profilePicHover}
                             alt="Profile Picture Hover"
@@ -168,16 +151,16 @@ export default function Hero() {
                     </div>
                 </BackgroundGradient>
             </BlurFade>
-
-            {/* <ProgrammerCoding className={"size-130"} /> */}
         </div>
     );
 }
 
+// ===== Helper Functions & Sub-Components =====
+
 const getStatus = () => {
     const now = new Date();
     const localTime = new Intl.DateTimeFormat("en-US", {
-        timeZone: "Asia/Tehran", // ← Changed to Iran time zone
+        timeZone: "Asia/Tehran",
         hour: "numeric",
         hour12: false,
     }).format(now);
@@ -185,29 +168,13 @@ const getStatus = () => {
     const currentHour = parseInt(localTime, 10);
 
     if (currentHour >= 8 && currentHour < 12) {
-        // ← Changed to 8 AM - 12 PM
         return { status: "Available for new roles", dotColor: "green" };
     } else {
         return { status: "Away", dotColor: "amber" };
     }
 };
 
-const iconClass = (label: string, wiggleIcon: string | null) =>
-    `text-white ${
-        wiggleIcon === label.toLowerCase()
-            ? "animate-wiggle scale-150 transition-transform duration-200"
-            : ""
-    } hover:scale-130 hover:animate-wiggle transition-transform duration-300`;
-
-function ContactIcons({
-    wiggleIcon,
-    handleIconClick,
-    isMobile,
-}: {
-    wiggleIcon: string | null;
-    handleIconClick: (label: string) => void;
-    isMobile: boolean;
-}) {
+const ContactIcons = ({ isMobile }: { isMobile: boolean }) => {
     return (
         <div className="flex flex-row items-center justify-center space-x-4 sm:space-x-6 text-white">
             {data.contact.map((link) => (
@@ -218,13 +185,11 @@ function ContactIcons({
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={link.aria}
-                            onClick={() =>
-                                handleIconClick(link.label.toLowerCase())
-                            }
                             className="inline-block text-white"
                         >
                             {React.cloneElement(link.icon, {
-                                className: iconClass(link.label, wiggleIcon),
+                                className:
+                                    "scale-120 hover:scale-150 hover:animate-wiggle transition-transform duration-200",
                                 size: isMobile ? 24 : 30,
                             })}
                         </a>
@@ -236,4 +201,4 @@ function ContactIcons({
             ))}
         </div>
     );
-}
+};
