@@ -29,7 +29,6 @@ export const metadata: Metadata = {
     },
     manifest: "/site.webmanifest",
 };
-
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -43,7 +42,12 @@ export default function RootLayout({
                 suppressHydrationWarning
             >
                 <body className="flex flex-col">
-                    <ThemeProvider attribute="class" defaultTheme="dark">
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="dark"
+                        enableSystem={false}
+                        storageKey="theme-preference"
+                    >
                         <StarsCanvas />
                         <Navbar navItems={data.nav} />
                         {children}
