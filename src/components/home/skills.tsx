@@ -35,14 +35,9 @@ import {
 } from "react-icons/si";
 import {
     TbApi,
-    TbCloud,
     TbLock,
     TbSchema,
-    TbShieldLock,
-    TbSparkles,
     TbTopologyStar3,
-    TbCurrencyDollar,
-    TbCloudUpload,
     TbPlugConnected,
 } from "react-icons/tb";
 import { LuBoxes } from "react-icons/lu";
