@@ -39,20 +39,16 @@ export default function RootLayout({
         <ViewTransitions>
             <html
                 lang="en"
-                className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+                className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
                 suppressHydrationWarning
             >
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                >
-                    <body className="flex flex-col">
+                <body className="flex flex-col">
+                    <ThemeProvider attribute="class" defaultTheme="dark">
                         <StarsCanvas />
                         <Navbar navItems={data.nav} />
                         {children}
-                    </body>
-                </ThemeProvider>
+                    </ThemeProvider>
+                </body>
             </html>
         </ViewTransitions>
     );
