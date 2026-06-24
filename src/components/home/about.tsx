@@ -1,19 +1,12 @@
 "use client";
 
-// src/components/home/about.tsx
 import Section from "@/components/section/section";
 import SectionHeader from "@/components/section/section-header";
 import { stats, type StatItem } from "@/data/about";
-
-// Single color configuration for all cards
-const COLORS = {
-    gradient: "from-blue-600/20 to-blue-600/5",
-    text: "text-blue-400",
-    border: "border-blue-500/20",
-    shadow: "shadow-blue-500/10",
-};
-
+import TypewriterText from "@/components/ui/typewriter-text";
+import { useCountUp } from "@/hooks/useCountUp";
 import { useEffect, useRef, useState } from "react";
+import { BlurFade } from "@/components/ui/blur-fade";
 
 const StatCard = ({ value, label, icon }: StatItem) => {
     const ref = useRef<HTMLDivElement | null>(null);
@@ -41,52 +34,68 @@ const StatCard = ({ value, label, icon }: StatItem) => {
             ref={ref}
             className={`
                 relative
-                bg-linear-to-br ${COLORS.gradient}
-                backdrop-blur-sm border ${COLORS.border}
+                bg-white/5 
+                backdrop-blur-sm border border-white/10
                 rounded-xl p-6 text-center
-                hover:transform hover:scale-105
-                hover:shadow-xl ${COLORS.shadow}
+                hover:scale-105
+                hover:shadow-xl shadow-blue-500/10
                 transition-all duration-300
                 cursor-default group
             `}
         >
-            <div className="absolute top-2 left-3 text-lg md:text-xl opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+            <div className="absolute top-2 left-3 text-lg opacity-60 group-hover:opacity-100">
                 {icon}
             </div>
 
-            <div className={`text-3xl md:text-4xl font-bold ${COLORS.text}`}>
+            <div className={`text-3xl font-bold text-blue-400`}>
                 {animatedValue}
             </div>
 
-            <div className="text-xs md:text-sm text-gray-400 mt-1 font-medium tracking-wider">
+            <div className="text-xs text-gray-400 mt-1 font-medium tracking-wider">
                 {label}
             </div>
         </div>
     );
 };
-// Stats Grid
+
 const StatsGrid = () => (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-4 gap-4 w-full">
         {stats.map((stat, index) => (
             <StatCard key={index} {...stat} />
         ))}
     </div>
 );
 
-import TypewriterText from "@/components/ui/typewriter-text";
-import { useCountUp } from "@/hooks/useCountUp";
+const softSkills = [
+    "Teamwork & Collaboration",
+    "Problem Solving",
+    "Time Management",
+    "Commitment & Responsibility",
+    "Fast Learner",
+    "Adaptability",
+];
+
+const SoftSkills = () => (
+    <div className="flex flex-col gap-3">
+        {softSkills.map((skill, i) => (
+            <div
+                key={i}
+                className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-4 hover:bg-white/10 transition"
+            >
+                <span className="text-blue-400">⚡</span>
+                <span className="text-gray-200 text-sm md:text-base">
+                    {skill}
+                </span>
+            </div>
+        ))}
+    </div>
+);
 
 const AboutText = () => (
     <div className="flex-1">
         <TypewriterText
-            speed={55}
-            className="
-                whitespace-pre-line
-                text-lg md:text-xl lg:text-2xl
-                text-gray-200
-                leading-relaxed
-                font-light
-            "
+            speed={30}
+            className="whitespace-pre-line text-lg md:text-xl text-gray-200 leading-relaxed font-light"
         >
             <span className="text-blue-400 font-semibold">
                 Full-Stack Developer
@@ -97,18 +106,17 @@ const AboutText = () => (
             <span className="text-cyan-400 font-medium">Next.js</span>,{" "}
             <span className="text-green-400 font-medium">Django</span>,{" "}
             <span className="text-green-400 font-medium">FastAPI</span>, and{" "}
-            <span className="text-green-400 font-medium">NestJS</span>.{"\n\n"}
+            <span className="text-green-400 font-medium">NestJS</span>.{"\n"}
             Experienced in building financial dashboards, market analysis tools,
             and backend-driven platforms with a strong focus on{" "}
             <span className="text-blue-400 font-medium">
                 performance
             </span> and{" "}
-            <span className="text-blue-400 font-medium">scalability</span>, with
-            clean system architecture. Comfortable working across the full stack
-            from{" "}
+            <span className="text-blue-400 font-medium">scalability</span>.
+            Comfortable working across the full stack from{" "}
             <span className="text-cyan-400 font-medium">UI development</span> to
             API design and database structure.
-            {"\n\n"}
+            {"\n"}
             Strong{" "}
             <span className="text-purple-400 font-medium">
                 problem-solving mindset
@@ -126,13 +134,24 @@ export default function About() {
         <Section id="about" className="min-h-screen py-20">
             <SectionHeader title="About Me" />
 
-            <div className="flex flex-col lg:flex-row gap-16 items-start mt-8 max-w-7xl mx-auto">
-                <div className="flex-[2]">
+            <div className="flex flex-col lg:flex-row gap-10 max-w-7xl mx-auto mt-8">
+                {/* LEFT */}
+                <div className="flex flex-col gap-10 flex-2">
                     <AboutText />
+                    <BlurFade delay={0.005 * 1} inView>
+                        <StatsGrid />
+                    </BlurFade>
                 </div>
-                <div className="lg:w-96 shrink-0">
-                    <StatsGrid />
-                </div>
+
+                {/* RIGHT */}
+                <BlurFade delay={0.005 * 1} inView>
+                    <div className="flex-1">
+                        <h3 className="text-white text-xl font-semibold mb-4">
+                            Soft Skills
+                        </h3>
+                        <SoftSkills />
+                    </div>
+                </BlurFade>
             </div>
         </Section>
     );
