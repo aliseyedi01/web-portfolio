@@ -39,7 +39,7 @@ import {
 import { LuBoxes } from "react-icons/lu";
 import { HiOutlineQueueList } from "react-icons/hi2";
 import { MdInstallDesktop } from "react-icons/md";
-import DeepSeekIcon from "@/assets/icon/svg/deepseek-icon";
+import DeepSeekIcon from "@/components/icon/deepseek-icon";
 
 export interface SkillData {
     name: string;
