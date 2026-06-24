@@ -1,6 +1,6 @@
 // app/components/skills.tsx
-import Section from "@/components/section/section";
-import SectionHeader from "@/components/section/section-header";
+import Section from "@/components/layout/section";
+import SectionHeader from "@/components/layout/section-header";
 import SkillCard from "@/components/ui/skill-card";
 import { skillCategories, type SkillCategory } from "@/data/skills";
 

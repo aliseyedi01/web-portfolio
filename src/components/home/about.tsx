@@ -1,7 +1,7 @@
 "use client";
 
-import Section from "@/components/section/section";
-import SectionHeader from "@/components/section/section-header";
+import Section from "@/components/layout/section";
+import SectionHeader from "@/components/layout/section-header";
 import { softSkills, stats, type StatItem } from "@/data/about";
 import TypewriterText from "@/components/ui/typewriter-text";
 import { useCountUp } from "@/hooks/useCountUp";
