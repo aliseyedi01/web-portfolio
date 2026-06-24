@@ -36,7 +36,7 @@ const StatCard = ({ value, label, icon }: StatItem) => {
                 relative
                 bg-white/5 
                 backdrop-blur-sm border border-white/10
-                rounded-xl p-6 text-center
+                rounded-xl p-2 sm:p-4 md:p-6 text-center
                 hover:scale-105
                 hover:shadow-xl shadow-blue-500/10
                 transition-all duration-300
@@ -59,13 +59,12 @@ const StatCard = ({ value, label, icon }: StatItem) => {
 };
 
 const StatsGrid = () => (
-    <div className="grid grid-cols-4 gap-4 w-full">
+    <div className="grid grid-cols-2  lg:grid-cols-4 gap-4 w-full">
         {stats.map((stat, index) => (
             <StatCard key={index} {...stat} />
         ))}
     </div>
 );
-
 const SoftSkills = () => (
     <div className="flex flex-col gap-3">
         {softSkills.map((skill, i) => {
@@ -126,12 +125,15 @@ const AboutText = () => (
 
 export default function About() {
     return (
-        <Section id="about" className="min-h-screen py-20">
+        <Section
+            id="about"
+            className="h-full md:min-h-screen max-md:px-4 md:py-20"
+        >
             <SectionHeader title="About Me" />
 
             <div className="flex flex-col lg:flex-row gap-10 max-w-7xl mx-auto mt-8">
                 {/* LEFT */}
-                <div className="flex flex-col gap-8 flex-2">
+                <div className="flex flex-col gap-7 flex-2">
                     <AboutText />
                     <BlurFade delay={0.005 * 1} inView>
                         <StatsGrid />
