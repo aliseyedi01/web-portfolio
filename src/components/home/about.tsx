@@ -33,14 +33,7 @@ const StatCard = ({ value, label, icon }: StatItem) => {
         <div
             ref={ref}
             className={`
-                relative
-                bg-white/5 
-                backdrop-blur-sm border border-white/10
-                rounded-xl p-2 sm:p-4 md:p-6 text-center
-                hover:scale-105
-                hover:shadow-xl shadow-blue-500/10
-                transition-all duration-300
-                cursor-default group
+                relative glass-card p-2 sm:p-4 md:p-6 text-center cursor-default group
             `}
         >
             <div className="absolute top-2 left-3 text-lg opacity-60 group-hover:opacity-100">
@@ -73,7 +66,7 @@ const SoftSkills = () => (
             return (
                 <div
                     key={i}
-                    className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-4 hover:bg-white/10 transition"
+                    className="flex items-center gap-3 px-4 py-4 glass-card "
                 >
                     <Icon className="text-blue-400 text-lg" />
                     <span className="text-gray-200 text-sm md:text-base">

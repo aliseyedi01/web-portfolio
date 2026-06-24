@@ -366,3 +366,21 @@ html.dark code[data-theme] span {
   text-align: right;
   color: var(--muted-foreground);
 }
+
+@layer components {
+  .glass-card {
+    @apply  rounded-xl
+    bg-white/5 backdrop-blur-sm
+    border border-blue-300/15
+    p-4 sm:p-5
+    shadow-sm shadow-blue-400/20
+    transform
+    transition-all duration-200
+    hover:-translate-y-0.5
+    hover:border-blue-200/60
+    hover:shadow-2xl
+    hover:shadow-blue-500/30
+    hover:scale-[1.02];
+  }
+}
+

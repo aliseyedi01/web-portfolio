@@ -3,10 +3,11 @@ import Section from "@/components/layout/section";
 import SectionHeader from "@/components/layout/section-header";
 import SkillCard from "@/components/ui/skill-card";
 import { skillCategories, type SkillCategory } from "@/data/skills";
+import { BlurFade } from "@/components/ui/blur-fade";
 
 function SkillCategoryPanel({ title, hint, skills }: SkillCategory) {
     return (
-        <article className="group relative rounded-xl border border-blue-800/40 bg-linear-to-br from-blue-950/30 via-slate-900/50 to-blue-950/20 p-4 shadow-lg shadow-blue-500/5 backdrop-blur-sm sm:p-5 transition-all duration-300 hover:border-blue-600/60 hover:shadow-blue-500/20 hover:shadow-xl">
+        <article className="group relative glass-card">
             {/* Glow effect */}
             <div className="absolute -inset-px rounded-xl bg-linear-to-br from-blue-500/10 via-transparent to-blue-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             <div className="relative">
@@ -45,12 +46,16 @@ export default function Skills() {
                 subtitle="Tools I build with."
                 highlightWord="build with."
             />
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5">
-                {skillCategories.map((category) => (
-                    <SkillCategoryPanel key={category.title} {...category} />
-                ))}
-            </div>
+            <BlurFade delay={0.005 * 1} inView>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5">
+                    {skillCategories.map((category) => (
+                        <SkillCategoryPanel
+                            key={category.title}
+                            {...category}
+                        />
+                    ))}
+                </div>
+            </BlurFade>
         </Section>
     );
 }
