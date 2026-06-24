@@ -1,4 +1,12 @@
 // src/data/stats.ts
+import {
+    FaUsers,
+    FaPuzzlePiece,
+    FaClock,
+    FaClipboardCheck,
+    FaBolt,
+    FaSyncAlt,
+} from "react-icons/fa";
 
 export interface StatItem {
     value: string;
@@ -27,4 +35,13 @@ export const stats: StatItem[] = [
         label: "PASSION FOR CODE",
         icon: "💻",
     },
+];
+
+export const softSkills = [
+    { label: "Teamwork & Collaboration", icon: FaUsers },
+    { label: "Problem Solving", icon: FaPuzzlePiece },
+    { label: "Time Management", icon: FaClock },
+    { label: "Commitment & Responsibility", icon: FaClipboardCheck },
+    { label: "Fast Learner", icon: FaBolt },
+    { label: "Adaptability", icon: FaSyncAlt },
 ];

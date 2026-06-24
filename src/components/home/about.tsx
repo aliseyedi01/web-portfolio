@@ -2,7 +2,7 @@
 
 import Section from "@/components/section/section";
 import SectionHeader from "@/components/section/section-header";
-import { stats, type StatItem } from "@/data/about";
+import { softSkills, stats, type StatItem } from "@/data/about";
 import TypewriterText from "@/components/ui/typewriter-text";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useEffect, useRef, useState } from "react";
@@ -66,28 +66,23 @@ const StatsGrid = () => (
     </div>
 );
 
-const softSkills = [
-    "Teamwork & Collaboration",
-    "Problem Solving",
-    "Time Management",
-    "Commitment & Responsibility",
-    "Fast Learner",
-    "Adaptability",
-];
-
 const SoftSkills = () => (
     <div className="flex flex-col gap-3">
-        {softSkills.map((skill, i) => (
-            <div
-                key={i}
-                className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-4 hover:bg-white/10 transition"
-            >
-                <span className="text-blue-400">⚡</span>
-                <span className="text-gray-200 text-sm md:text-base">
-                    {skill}
-                </span>
-            </div>
-        ))}
+        {softSkills.map((skill, i) => {
+            const Icon = skill.icon;
+
+            return (
+                <div
+                    key={i}
+                    className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-4 hover:bg-white/10 transition"
+                >
+                    <Icon className="text-blue-400 text-lg" />
+                    <span className="text-gray-200 text-sm md:text-base">
+                        {skill.label}
+                    </span>
+                </div>
+            );
+        })}
     </div>
 );
 
@@ -95,7 +90,7 @@ const AboutText = () => (
     <div className="flex-1">
         <TypewriterText
             speed={30}
-            className="whitespace-pre-line text-lg md:text-xl text-gray-200 leading-relaxed font-light"
+            className="whitespace-pre-line text-lg md:text-xl text-gray-200 leading-relaxed font-light mt-7"
         >
             <span className="text-blue-400 font-semibold">
                 Full-Stack Developer
@@ -106,7 +101,7 @@ const AboutText = () => (
             <span className="text-cyan-400 font-medium">Next.js</span>,{" "}
             <span className="text-green-400 font-medium">Django</span>,{" "}
             <span className="text-green-400 font-medium">FastAPI</span>, and{" "}
-            <span className="text-green-400 font-medium">NestJS</span>.{"\n"}
+            <span className="text-green-400 font-medium">NestJS</span>.{"\n\n"}
             Experienced in building financial dashboards, market analysis tools,
             and backend-driven platforms with a strong focus on{" "}
             <span className="text-blue-400 font-medium">
@@ -116,7 +111,7 @@ const AboutText = () => (
             Comfortable working across the full stack from{" "}
             <span className="text-cyan-400 font-medium">UI development</span> to
             API design and database structure.
-            {"\n"}
+            {"\n\n"}
             Strong{" "}
             <span className="text-purple-400 font-medium">
                 problem-solving mindset
@@ -136,7 +131,7 @@ export default function About() {
 
             <div className="flex flex-col lg:flex-row gap-10 max-w-7xl mx-auto mt-8">
                 {/* LEFT */}
-                <div className="flex flex-col gap-10 flex-2">
+                <div className="flex flex-col gap-8 flex-2">
                     <AboutText />
                     <BlurFade delay={0.005 * 1} inView>
                         <StatsGrid />
