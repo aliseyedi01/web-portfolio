@@ -129,7 +129,11 @@ export default function About() {
             id="about"
             className="h-full md:min-h-screen max-md:px-4 md:py-20"
         >
-            <SectionHeader title="About Me" />
+            <SectionHeader
+                title="01 — ABOUT"
+                subtitle="Builder ships real-time, scalable products"
+                highlightWord="real-time, scalable"
+            />
 
             <div className="flex flex-col lg:flex-row gap-10 max-w-7xl mx-auto mt-8">
                 {/* LEFT */}

@@ -40,7 +40,11 @@ function SkillCategoryPanel({ title, hint, skills }: SkillCategory) {
 export default function Skills() {
     return (
         <Section id="skills" className="h-screen">
-            <SectionHeader title="Skills & Technologies" />
+            <SectionHeader
+                title="02 — SKILLS"
+                subtitle="Tools I build with."
+                highlightWord="build with."
+            />
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5">
                 {skillCategories.map((category) => (
