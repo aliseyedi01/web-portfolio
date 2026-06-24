@@ -51,10 +51,20 @@ const StatsGrid = () => (
     </div>
 );
 
-// About Text
+import TypewriterText from "@/components/ui/typewriter-text";
+
 const AboutText = () => (
-    <div className="flex-1 space-y-6">
-        <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed font-light">
+    <div className="flex-1">
+        <TypewriterText
+            speed={55}
+            className="
+                whitespace-pre-line
+                text-lg md:text-xl lg:text-2xl
+                text-gray-200
+                leading-relaxed
+                font-light
+            "
+        >
             <span className="text-blue-400 font-semibold">
                 Front-End Developer
             </span>{" "}
@@ -63,25 +73,21 @@ const AboutText = () => (
             <span className="text-cyan-400 font-medium">Next.js</span> with
             hands-on experience building financial dashboards and market
             analysis tools.
-        </p>
-
-        <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed font-light">
+            {"\n\n"}
             Quick learner with a track record of adopting new technologies and
             applying them in production. Committed to writing{" "}
             <span className="text-green-400 font-medium">
                 clean, maintainable code
             </span>{" "}
             with a creative approach to problem-solving.
-        </p>
-
-        <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed font-light">
+            {"\n\n"}
             Possesses an understanding of project architecture, design patterns,
             and state management, combined with backend knowledge for effective{" "}
             <span className="text-purple-400 font-medium">
                 full-stack collaboration
             </span>
             .
-        </p>
+        </TypewriterText>
     </div>
 );
 
