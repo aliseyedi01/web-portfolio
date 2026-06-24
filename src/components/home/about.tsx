@@ -66,27 +66,34 @@ const AboutText = () => (
             "
         >
             <span className="text-blue-400 font-semibold">
-                Front-End Developer
+                Full-Stack Developer
             </span>{" "}
-            with 4+ years of experience specializing in{" "}
-            <span className="text-cyan-400 font-medium">React</span> and{" "}
-            <span className="text-cyan-400 font-medium">Next.js</span> with
-            hands-on experience building financial dashboards and market
-            analysis tools.
+            with 4+ years of experience building scalable web applications
+            across frontend and backend systems. Specializing in{" "}
+            <span className="text-cyan-400 font-medium">React</span>,{" "}
+            <span className="text-cyan-400 font-medium">Next.js</span>,{" "}
+            <span className="text-green-400 font-medium">Django</span>,{" "}
+            <span className="text-green-400 font-medium">FastAPI</span>, and{" "}
+            <span className="text-green-400 font-medium">NestJS</span>.{"\n\n"}
+            Experienced in building financial dashboards, market analysis tools,
+            and backend-driven platforms with a strong focus on{" "}
+            <span className="text-blue-400 font-medium">
+                performance
+            </span> and{" "}
+            <span className="text-blue-400 font-medium">scalability</span>, with
+            clean system architecture. Comfortable working across the full stack
+            from{" "}
+            <span className="text-cyan-400 font-medium">UI development</span> to
+            API design and database structure.
             {"\n\n"}
-            Quick learner with a track record of adopting new technologies and
-            applying them in production. Committed to writing{" "}
-            <span className="text-green-400 font-medium">
-                clean, maintainable code
-            </span>{" "}
-            with a creative approach to problem-solving.
-            {"\n\n"}
-            Possesses an understanding of project architecture, design patterns,
-            and state management, combined with backend knowledge for effective{" "}
+            Strong{" "}
             <span className="text-purple-400 font-medium">
-                full-stack collaboration
-            </span>
-            .
+                problem-solving mindset
+            </span>{" "}
+            with a focus on writing{" "}
+            <span className="text-green-400 font-medium">clean</span>,
+            maintainable, and testable code. Continuously learning new
+            technologies and applying them in real-world production systems.
         </TypewriterText>
     </div>
 );
