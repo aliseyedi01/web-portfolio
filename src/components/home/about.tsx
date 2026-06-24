@@ -1,3 +1,5 @@
+"use client";
+
 // src/components/home/about.tsx
 import Section from "@/components/section/section";
 import SectionHeader from "@/components/section/section-header";
@@ -11,37 +13,57 @@ const COLORS = {
     shadow: "shadow-blue-500/10",
 };
 
-// Stat Card Component - Clean and reusable
-const StatCard = ({ value, label, icon }: StatItem) => (
-    <div
-        className={`
-            relative
-            bg-linear-to-br ${COLORS.gradient}
-            backdrop-blur-sm border ${COLORS.border}
-            rounded-xl p-6 text-center
-            hover:transform hover:scale-105
-            hover:shadow-xl ${COLORS.shadow}
-            transition-all duration-300
-            cursor-default group
-        `}
-    >
-        {/* Icon */}
-        <div className="absolute top-2 left-3 text-lg md:text-xl opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
-            {icon}
-        </div>
+import { useEffect, useRef, useState } from "react";
 
-        {/* Value */}
-        <div className={`text-3xl md:text-4xl font-bold ${COLORS.text}`}>
-            {value}
-        </div>
+const StatCard = ({ value, label, icon }: StatItem) => {
+    const ref = useRef<HTMLDivElement | null>(null);
+    const [active, setActive] = useState(false);
 
-        {/* Label */}
-        <div className="text-xs md:text-sm text-gray-400 mt-1 font-medium tracking-wider">
-            {label}
-        </div>
-    </div>
-);
+    const animatedValue = useCountUp(value, active);
 
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+
+        const obs = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                setActive(true);
+                obs.disconnect();
+            }
+        });
+
+        obs.observe(el);
+        return () => obs.disconnect();
+    }, []);
+
+    return (
+        <div
+            ref={ref}
+            className={`
+                relative
+                bg-linear-to-br ${COLORS.gradient}
+                backdrop-blur-sm border ${COLORS.border}
+                rounded-xl p-6 text-center
+                hover:transform hover:scale-105
+                hover:shadow-xl ${COLORS.shadow}
+                transition-all duration-300
+                cursor-default group
+            `}
+        >
+            <div className="absolute top-2 left-3 text-lg md:text-xl opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+                {icon}
+            </div>
+
+            <div className={`text-3xl md:text-4xl font-bold ${COLORS.text}`}>
+                {animatedValue}
+            </div>
+
+            <div className="text-xs md:text-sm text-gray-400 mt-1 font-medium tracking-wider">
+                {label}
+            </div>
+        </div>
+    );
+};
 // Stats Grid
 const StatsGrid = () => (
     <div className="grid grid-cols-2 gap-4">
@@ -52,6 +74,7 @@ const StatsGrid = () => (
 );
 
 import TypewriterText from "@/components/ui/typewriter-text";
+import { useCountUp } from "@/hooks/useCountUp";
 
 const AboutText = () => (
     <div className="flex-1">
