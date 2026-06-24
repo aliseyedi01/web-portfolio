@@ -1,16 +1,55 @@
 interface SectionHeaderProps {
     title: string;
     subtitle?: string;
+    highlightWord?: string;
+    highlightClassName?: string;
+    className?: string;
 }
 
-export default function SectionHeader({ title }: SectionHeaderProps) {
+export default function SectionHeader({
+    title,
+    subtitle,
+    highlightWord,
+    highlightClassName = "text-cyan-400",
+    className = "",
+}: SectionHeaderProps) {
+    const renderSubtitle = () => {
+        if (!subtitle) return null;
+        if (!highlightWord) return subtitle;
+
+        const parts = subtitle.split(new RegExp(`(${highlightWord})`, "gi"));
+
+        return parts.map((part, index) => {
+            if (part.toLowerCase() === highlightWord.toLowerCase()) {
+                return (
+                    <span key={index} className={highlightClassName}>
+                        {part}
+                    </span>
+                );
+            }
+            return part;
+        });
+    };
     return (
-        <div className="mb-6 px-1 text-center sm:mb-8 lg:mb-10">
-            <h2 className="relative mb-3 inline-block max-w-full text-2xl font-black tracking-tight sm:mb-4 sm:text-3xl lg:text-5xl">
-                <span className="heading-gradient drop-shadow-sm">{title}</span>
-                {/* Unified Emerald underline */}
-                <div className="absolute -bottom-2 left-1/2 h-0.5 w-1/3 min-w-16 -translate-x-1/2 bg-linear-to-r from-transparent via-emerald-500/50 to-transparent" />
+        <div
+            className={`
+            mb-6 px-1 sm:mb-8 lg:mb-10
+            text-left 
+
+            ${className}
+        `}
+        >
+            {/* Title */}
+            <h2 className="relative mb-3 inline-block font-mono text-cyan-300 text-md tracking-widest">
+                {title}
             </h2>
+
+            {/* Subtitle - with the "Let's build something together." vibe */}
+            {subtitle && (
+                <div className="mt-4 text-left text-white sm:text-base reveal font-display text-4xl md:text-6xl font-bold tracking-tight">
+                    {renderSubtitle()}
+                </div>
+            )}
         </div>
     );
 }
