@@ -77,10 +77,10 @@ export default function Hero() {
                             <div className="w-full space-y-3 sm:space-y-4 md:space-y-6">
                                 <BlurFade delay={0.005 * 1} inView>
                                     <div className="z-50 subpixel-antialiased text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-left space-y-1 sm:space-y-2 md:space-y-3">
-                                        <div className="bg-linear-to-b from-muted to-foreground/80 dark:from-muted-foreground/30 dark:to-foreground bg-clip-text text-transparent text-2xl sm:text-4xl md:text-5xl lg:text-6xl pl-1">
+                                        <div className="bg-linear-to-b from-slate-500 to-slate-900 dark:from-slate-300 dark:to-white bg-clip-text text-transparent text-2xl sm:text-4xl md:text-5xl lg:text-6xl pl-1">
                                             Hello. I&apos;m
                                         </div>
-                                        <div className="bg-linear-to-b from-primary/60 to-primary dark:from-primary/40 dark:to-primary-foreground bg-clip-text text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-transparent">
+                                        <div className="bg-linear-to-b from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-transparent">
                                             <span className="font-script font-normal text-[1.05em] leading-none align-baseline">
                                                 Ali Seyedi
                                             </span>
@@ -91,7 +91,7 @@ export default function Hero() {
                                 <BlurFade delay={0.005 * 2} inView>
                                     <p className="text-xs sm:text-sm md:text-base lg:text-xl xl:text-2xl subpixel-antialiased tracking-tight font-medium text-left text-foreground/90">
                                         A FullStack Developer who likes{" "}
-                                        <span className="font-script font-normal text-[1.05em] leading-none align-baseline text-primary/80 dark:text-primary/70">
+                                        <span className="font-script font-normal text-[1.05em] leading-none align-baseline text-blue-600 dark:text-cyan-300">
                                             building things
                                         </span>
                                     </p>

@@ -1,5 +1,6 @@
 "use client";
-import React, { JSX, useState } from "react";
+
+import React, { useState } from "react";
 import {
     motion,
     AnimatePresence,
@@ -20,13 +21,24 @@ const FALLBACK_REPO_URL = "https://github.com/aliseyedi01/Next.js-Portfolio";
 export const Navbar = () => {
     const { resolvedTheme } = useTheme();
     const { data: starsData } = useGitHubStars();
+
     const repoUrl = starsData?.url ?? FALLBACK_REPO_URL;
     const stars = starsData?.stars ?? 0;
+
     const { scrollY } = useScroll();
+
     const [visible, setVisible] = useState(true);
+    const [disableHide, setDisableHide] = useState(false);
+    const [activeLink, setActiveLink] = useState<string>("");
+
     const router = useTransitionRouter();
 
     useMotionValueEvent(scrollY, "change", (current) => {
+        if (disableHide) {
+            setVisible(true);
+            return;
+        }
+
         if (typeof current === "number") {
             const previous = scrollY.getPrevious();
             const direction = previous !== undefined ? current - previous : 0;
@@ -34,28 +46,44 @@ export const Navbar = () => {
             if (current < 50) {
                 setVisible(true);
             } else {
-                if (direction < 0) {
-                    setVisible(true);
-                } else {
-                    setVisible(false);
-                }
+                setVisible(direction < 0);
             }
         }
     });
 
     const handleNavClick = (link: string) => {
+        setActiveLink(link);
+
+        setDisableHide(true);
+        setVisible(true);
+
+        const unlock = () => {
+            setTimeout(() => {
+                setDisableHide(false);
+            }, 700);
+        };
+
         if (link.startsWith("/")) {
             router.push(link);
+            unlock();
             return;
         }
+
         if (window.location.pathname !== "/") {
             router.push(`/#${link}`);
+            unlock();
             return;
         }
+
         const section = document.getElementById(link);
+
         if (section) {
-            section.scrollIntoView({ behavior: "smooth" });
+            section.scrollIntoView({
+                behavior: "smooth",
+            });
         }
+
+        unlock();
     };
 
     const handleLogoClick = () => {
@@ -78,7 +106,7 @@ export const Navbar = () => {
                         duration: 0.2,
                     }}
                     className={cn(
-                        "flex max-w-6xl w-full justify-self-center backdrop-blur-3xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg bg-white/70 dark:bg-background/10 sm:bg-white/80 sm:dark:bg-background/20 z-50 pr-4 pl-6 py-4 items-center justify-between border border-blue-300/20 dark:border-blue-400/10 shadow-sm dark:shadow-blue-500/5 transition-colors duration-300",
+                        "flex max-w-6xl w-full justify-self-center backdrop-blur-3xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg bg-white/70 dark:bg-background/10 sm:bg-white/80 sm:dark:bg-background/20 z-50 pr-4 pl-6 py-4 items-center justify-between border border-blue-400/40 dark:border-blue-500/25 shadow-sm shadow-blue-500/5 dark:shadow-blue-500/10 transition-colors",
                     )}
                 >
                     <div className="flex items-center mr-4 sm:mr-16 text-foreground">
@@ -89,28 +117,53 @@ export const Navbar = () => {
                         />
                     </div>
 
-                    {/* Links in the center */}
                     <div className="flex items-center gap-3 sm:gap-6 ml-auto mr-0 sm:mr-4">
-                        {navItems.map((navItem, idx) => (
-                            <button
-                                key={`link=${idx}`}
-                                onClick={() => handleNavClick(navItem.link)}
-                                className={cn(
-                                    "relative font-semibold text-muted-foreground items-center flex space-x-1 hover:text-foreground transition-colors duration-300",
-                                )}
-                            >
-                                <span className="block sm:hidden">
-                                    {navItem.icon}
-                                </span>
-                                <span className="hidden sm:block text-sm">
-                                    {navItem.name}
-                                </span>
-                            </button>
-                        ))}
+                        <div className="flex items-center gap-1 rounded-full border border-blue-300/40 bg-blue-50/40 p-1 dark:border-blue-500/15 dark:bg-blue-950/20">
+                            {navItems.map((navItem, idx) => {
+                                const isActive = activeLink === navItem.link;
+
+                                return (
+                                    <button
+                                        key={`link=${idx}`}
+                                        onClick={() =>
+                                            handleNavClick(navItem.link)
+                                        }
+                                        className={cn(
+                                            "relative font-semibold items-center flex space-x-1 rounded-full px-3 py-1.5 transition-colors duration-300",
+                                            isActive
+                                                ? "text-white"
+                                                : "text-muted-foreground hover:text-foreground",
+                                        )}
+                                    >
+                                        {isActive && (
+                                            <motion.span
+                                                layoutId="navbar-active-pill"
+                                                className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500 to-blue-600 dark:from-blue-500 dark:to-indigo-600 shadow-md shadow-blue-500/30"
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 400,
+                                                    damping: 30,
+                                                }}
+                                            />
+                                        )}
+
+                                        <span className="relative z-10 block sm:hidden">
+                                            {navItem.icon}
+                                        </span>
+
+                                        <span className="relative z-10 hidden sm:block text-sm">
+                                            {navItem.name}
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+
                         <span
                             aria-hidden
                             className="h-5 w-px self-center bg-border"
                         />
+
                         <a
                             href={repoUrl}
                             target="_blank"
@@ -119,6 +172,7 @@ export const Navbar = () => {
                             className="group inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-background/40 hover:bg-background/70 hover:border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
                         >
                             <IconBrandGithub className="h-3.5 w-3.5" />
+
                             <span className="flex items-center gap-0.5 tabular-nums">
                                 <IconStar className="h-3 w-3 transition-colors group-hover:text-primary group-hover:animate-spin-grow" />
                                 {stars}

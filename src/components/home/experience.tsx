@@ -115,7 +115,10 @@ function ExperienceCard({
 
 export default function Experience() {
     return (
-        <Section id="experience" className="h-full md:min-h-screen w-full">
+        <Section
+            id="experience"
+            className="h-full md:min-h-screen w-full scroll-mt-28"
+        >
             <SectionHeader
                 title="03 — EXPERIENCE"
                 subtitle="Where I've shipped code."

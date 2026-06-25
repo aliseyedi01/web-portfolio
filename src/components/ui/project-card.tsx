@@ -5,7 +5,6 @@ import { Project } from "@/types/project";
 import { FiGithub } from "react-icons/fi";
 
 const categoryStyles: Record<Project["category"], string> = {
-    Fullstack: "bg-gradient-to-r from-fuchsia-500 to-purple-600",
     Frontend: "bg-gradient-to-r from-blue-500 to-cyan-600",
     Backend: "bg-gradient-to-r from-green-500 to-emerald-600",
     Bot: "bg-gradient-to-r from-pink-500 to-rose-600",
@@ -40,10 +39,10 @@ export default function ProjectCard({ project }: { project: Project }) {
             {/* Body */}
             <div className="flex flex-1 flex-col gap-4 p-5">
                 <div className="space-y-1.5">
-                    <h3 className="line-clamp-1 text-lg font-semibold text-white">
+                    <h3 className="line-clamp-1 text-lg font-semibold text-slate-900 dark:text-white">
                         {title}
                     </h3>
-                    <p className="line-clamp-2 min-h-[2.5rem] text-sm leading-relaxed text-zinc-400">
+                    <p className="line-clamp-2 min-h-[2.5rem] text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
                         {description}
                     </p>
                 </div>
@@ -52,13 +51,13 @@ export default function ProjectCard({ project }: { project: Project }) {
                     {visibleTech.map((tech) => (
                         <span
                             key={tech}
-                            className="rounded-full border border-purple-500/20 bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-300"
+                            className="rounded-full border border-purple-400/30 bg-purple-100/60 px-3 py-1 text-xs font-medium text-purple-700 dark:border-purple-500/20 dark:bg-purple-500/10 dark:text-purple-300"
                         >
                             {tech}
                         </span>
                     ))}
                     {hiddenCount > 0 && (
-                        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-400">
+                        <span className="rounded-full border border-slate-300/60 bg-slate-100/60 px-3 py-1 text-xs font-medium text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-zinc-400">
                             +{hiddenCount}
                         </span>
                     )}
@@ -68,7 +67,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                     <Link
                         href={codeUrl}
                         target="_blank"
-                        className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-white/15 bg-transparent py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/5"
+                        className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-slate-300/70 bg-transparent py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-white/15 dark:text-white dark:hover:bg-white/5"
                     >
                         <FiGithub className="h-4 w-4" />
                         Code

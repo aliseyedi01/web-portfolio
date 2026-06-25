@@ -19,7 +19,10 @@ export default function Projects() {
     );
 
     return (
-        <Section id="projects" className="h-full md:min-h-screen w-full">
+        <Section
+            id="projects"
+            className="h-full md:min-h-screen w-full scroll-mt-28"
+        >
             <SectionHeader
                 title="03 - FEATURED PROJECTS"
                 subtitle="Check out some of my recent work."

@@ -11,7 +11,16 @@ import { useState, useRef, Suspense, useEffect } from "react";
 import type { Points as PointsType } from "three";
 import { useTheme } from "next-themes";
 
-export const StarBackground = (props: PointsInstancesProps) => {
+type StarBackgroundProps = PointsInstancesProps & {
+    color?: string;
+    size?: number;
+};
+
+export const StarBackground = ({
+    color = "#4A90D9",
+    size = 0.002,
+    ...props
+}: StarBackgroundProps) => {
     const ref = useRef<PointsType | null>(null);
 
     const [sphere] = useState(() => {
@@ -49,8 +58,8 @@ export const StarBackground = (props: PointsInstancesProps) => {
             >
                 <PointMaterial
                     transparent
-                    color="#4A90D9"
-                    size={0.002}
+                    color={color}
+                    size={size}
                     sizeAttenuation
                     depthWrite={false}
                 />
@@ -77,11 +86,14 @@ export const StarsCanvas = () => {
             <Canvas
                 camera={{ position: [0, 0, 1] }}
                 style={{
-                    background: isDark ? "#030014" : "#F0F4FF",
+                    background: "var(--background-animate)",
                 }}
             >
                 <Suspense fallback={null}>
-                    <StarBackground />
+                    <StarBackground
+                        color="var(--star-color)"
+                        size={isDark ? 0.002 : 0.0032}
+                    />
                 </Suspense>
             </Canvas>
         </div>

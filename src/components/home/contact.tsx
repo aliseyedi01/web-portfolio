@@ -22,19 +22,20 @@ const ContactCard = ({ item }: { item: ContactItem }) => {
         <a
             href={item.href}
             target="_blank"
-            className="
-                flex items-center gap-4 glass-card 
-            "
+            rel="noopener noreferrer"
+            className="flex items-center gap-4 glass-card"
         >
-            <div className="p-3 rounded-lg bg-blue-500/10 text-blue-400">
+            <div className="p-3 rounded-lg bg-blue-100/70 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
                 <Icon className="text-xl" />
             </div>
 
             <div>
-                <div className="text-xs text-gray-400 tracking-wider">
+                <div className="text-xs text-slate-500 dark:text-gray-400 tracking-wider">
                     {item.label}
                 </div>
-                <div className="text-white font-medium">{item.value}</div>
+                <div className="text-slate-900 font-medium dark:text-white">
+                    {item.value}
+                </div>
             </div>
         </a>
     );
@@ -42,7 +43,10 @@ const ContactCard = ({ item }: { item: ContactItem }) => {
 
 export default function Contact() {
     return (
-        <Section id="contact" className="h-full md:min-h-screen w-full">
+        <Section
+            id="contact"
+            className="h-full md:min-h-screen w-full scroll-mt-28"
+        >
             <SectionHeader
                 title="04 - CONTACT"
                 subtitle="Let's build something together."

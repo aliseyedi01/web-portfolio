@@ -40,11 +40,11 @@ const StatCard = ({ value, label, icon }: StatItem) => {
                 {icon}
             </div>
 
-            <div className={`text-3xl font-bold text-blue-400`}>
+            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
                 {animatedValue}
             </div>
 
-            <div className="text-xs text-gray-400 mt-1 font-medium tracking-wider">
+            <div className="text-xs text-slate-500 dark:text-gray-400 mt-1 font-medium tracking-wider">
                 {label}
             </div>
         </div>
@@ -58,6 +58,7 @@ const StatsGrid = () => (
         ))}
     </div>
 );
+
 const SoftSkills = () => (
     <div className="flex flex-col gap-4 md:mt-2">
         {softSkills.map((skill, i) => {
@@ -68,8 +69,8 @@ const SoftSkills = () => (
                     key={i}
                     className="flex items-center gap-3 px-4 py-4 glass-card"
                 >
-                    <Icon className="text-blue-400 text-lg" />
-                    <span className="text-gray-200 text-sm md:text-base">
+                    <Icon className="text-blue-600 dark:text-blue-400 text-lg" />
+                    <span className="text-slate-700 dark:text-gray-200 text-sm md:text-base">
                         {skill.label}
                     </span>
                 </div>
@@ -82,35 +83,57 @@ const AboutText = () => (
     <div className="flex-1">
         <TypewriterText
             speed={30}
-            className="whitespace-pre-line text-lg md:text-xl text-gray-200 leading-relaxed font-light mt-1"
+            className="whitespace-pre-line text-lg md:text-xl text-slate-700 dark:text-gray-200 leading-relaxed font-light mt-1"
         >
-            <span className="text-blue-400 font-semibold">
+            <span className="text-blue-600 dark:text-blue-400 font-semibold">
                 Full-Stack Developer
             </span>{" "}
             with 4+ years of experience building scalable web applications
             across frontend and backend systems. Specializing in{" "}
-            <span className="text-cyan-400 font-medium">React</span>,{" "}
-            <span className="text-cyan-400 font-medium">Next.js</span>,{" "}
-            <span className="text-green-400 font-medium">Django</span>,{" "}
-            <span className="text-green-400 font-medium">FastAPI</span>, and{" "}
-            <span className="text-green-400 font-medium">NestJS</span>.{"\n"}
+            <span className="text-cyan-600 dark:text-cyan-400 font-medium">
+                React
+            </span>
+            ,{" "}
+            <span className="text-cyan-600 dark:text-cyan-400 font-medium">
+                Next.js
+            </span>
+            ,{" "}
+            <span className="text-green-600 dark:text-green-400 font-medium">
+                Django
+            </span>
+            ,{" "}
+            <span className="text-green-600 dark:text-green-400 font-medium">
+                FastAPI
+            </span>
+            , and{" "}
+            <span className="text-green-600 dark:text-green-400 font-medium">
+                NestJS
+            </span>
+            .{"\n"}
             Experienced in building financial dashboards, market analysis tools,
             and backend-driven platforms with a strong focus on{" "}
-            <span className="text-blue-400 font-medium">
+            <span className="text-blue-600 dark:text-blue-400 font-medium">
                 performance
-            </span> and{" "}
-            <span className="text-blue-400 font-medium">scalability</span>.
-            Comfortable working across the full stack from{" "}
-            <span className="text-cyan-400 font-medium">UI development</span> to
-            API design and database structure.
+            </span>{" "}
+            and{" "}
+            <span className="text-blue-600 dark:text-blue-400 font-medium">
+                scalability
+            </span>
+            . Comfortable working across the full stack from{" "}
+            <span className="text-cyan-600 dark:text-cyan-400 font-medium">
+                UI development
+            </span>{" "}
+            to API design and database structure.
             {"\n"}
             Strong{" "}
-            <span className="text-purple-400 font-medium">
+            <span className="text-purple-600 dark:text-purple-400 font-medium">
                 problem-solving mindset
             </span>{" "}
             with a focus on writing{" "}
-            <span className="text-green-400 font-medium">clean</span>,
-            maintainable, and testable code. Continuously learning new
+            <span className="text-green-600 dark:text-green-400 font-medium">
+                clean
+            </span>
+            , maintainable, and testable code. Continuously learning new
             technologies and applying them in real-world production systems.
         </TypewriterText>
     </div>
@@ -120,7 +143,7 @@ export default function About() {
     return (
         <Section
             id="about"
-            className="h-full md:min-h-screen max-md:px-4 md:py-20"
+            className="h-full md:min-h-screen max-md:px-4 md:py-20 scroll-mt-28"
         >
             <SectionHeader
                 title="01 — ABOUT"
@@ -140,7 +163,7 @@ export default function About() {
                 {/* RIGHT */}
                 <BlurFade delay={0.005 * 1} inView>
                     <div className="flex-1">
-                        <h3 className="text-white text-xl font-semibold mb-4">
+                        <h3 className="text-slate-900 dark:text-white text-xl font-semibold mb-4">
                             Soft Skills
                         </h3>
                         <SoftSkills />
