@@ -38,7 +38,7 @@ export function BlurFade({
     direction = "down",
     inView = false,
     inViewMargin = "-50px",
-    //   blur = "6px",
+    blur = "6px",
     ...props
 }: BlurFadeProps) {
     const ref = useRef(null);

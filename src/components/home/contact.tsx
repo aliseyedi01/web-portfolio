@@ -42,7 +42,7 @@ export default function Contact() {
     return (
         <Section id="contact" className="h-full md:min-h-scree mx-auto">
             <SectionHeader
-                title="06 - CONTACT"
+                title="04 - CONTACT"
                 subtitle="Let's build something together."
                 highlightWord="together"
             />
