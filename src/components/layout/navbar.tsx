@@ -13,20 +13,11 @@ import { AnimatedLogo } from "@/components/ui/logo-animation";
 import { useTransitionRouter } from "next-view-transitions";
 import { IconBrandGithub, IconStar } from "@tabler/icons-react";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
+import { navItems } from "@/data/navItems";
 
 const FALLBACK_REPO_URL = "https://github.com/aliseyedi01/Next.js-Portfolio";
 
-export const Navbar = ({
-    navItems,
-    className,
-}: {
-    navItems: {
-        name: string;
-        link: string;
-        icon?: JSX.Element;
-    }[];
-    className?: string;
-}) => {
+export const Navbar = () => {
     const { resolvedTheme } = useTheme();
     const { data: starsData } = useGitHubStars();
     const repoUrl = starsData?.url ?? FALLBACK_REPO_URL;
@@ -87,8 +78,7 @@ export const Navbar = ({
                         duration: 0.2,
                     }}
                     className={cn(
-                        "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-lg fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg sm:bg-none dark:bg-background/10 sm:dark:bg-background/20 bg-red-500 z-5000 pr-4 pl-6 py-4 items-center justify-between ",
-                        className,
+                        "flex max-w-7xl w-full justify-self-center backdrop-blur-3xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg bg-white/70 dark:bg-background/10 sm:bg-white/80 sm:dark:bg-background/20 z-50 pr-4 pl-6 py-4 items-center justify-between border border-blue-300/20 dark:border-blue-400/10 shadow-sm dark:shadow-blue-500/5 transition-colors duration-300",
                     )}
                 >
                     <div className="flex items-center mr-4 sm:mr-16 text-foreground">

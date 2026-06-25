@@ -39,7 +39,10 @@ export default function Hero() {
     };
 
     return (
-        <div className="relative flex flex-col-reverse lg:flex-row items-center justify-center overflow-hidden h-screen gap-6 sm:gap-8 lg:gap-16 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-0 min-h-screen lg:min-h-0">
+        <div
+            className="relative flex flex-col-reverse lg:flex-row items-center justify-center overflow-hidden h-screen gap-6 sm:gap-8 lg:gap-16 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-0 min-h-screen lg:min-h-0"
+            id="hero"
+        >
             <div>
                 <HeroConstellation desktopDots={300} mobileDots={75} />
                 <TooltipProvider delayDuration={200}>

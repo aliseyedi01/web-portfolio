@@ -14,6 +14,20 @@ export const navItems = [
         ),
     },
     {
+        name: "About",
+        link: "about",
+        icon: (
+            <IconHome className="subpixel-antialiased h-5 w-5 text-zinc-500 hover:text-zinc-950 dark:text-zinc-300 hover:dark:text-zinc-50 hover:animate-wiggle animate-wiggle transition-colors duration-100" />
+        ),
+    },
+    {
+        name: "Skills",
+        link: "skills",
+        icon: (
+            <IconPencil className="subpixel-antialiased h-5 w-5 text-zinc-500 hover:text-zinc-950 dark:text-zinc-300 hover:dark:text-zinc-50 hover:animate-wiggle animate-wiggle transition-colors duration-100" />
+        ),
+    },
+    {
         name: "Projects",
         link: "projects",
         icon: (
@@ -28,10 +42,10 @@ export const navItems = [
         ),
     },
     {
-        name: "Blog",
-        link: "/blog",
+        name: "contact",
+        link: "contact",
         icon: (
-            <IconPencil className="subpixel-antialiased h-5 w-5 text-zinc-500 hover:text-zinc-950 dark:text-zinc-300 hover:dark:text-zinc-50 hover:animate-wiggle animate-wiggle transition-colors duration-100" />
+            <IconBriefcase2 className="subpixel-antialiased h-5 w-5 text-zinc-500 hover:text-zinc-950 dark:text-zinc-300 hover:dark:text-zinc-50 hover:animate-wiggle animate-wiggle transition-colors duration-100" />
         ),
     },
 ];
