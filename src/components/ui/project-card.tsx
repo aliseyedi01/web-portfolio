@@ -11,14 +11,19 @@ const categoryStyles: Record<Project["category"], string> = {
     Bot: "bg-gradient-to-r from-pink-500 to-rose-600",
 };
 
+const MAX_VISIBLE_TECH = 4;
+
 export default function ProjectCard({ project }: { project: Project }) {
     const { title, description, image, category, techStack, codeUrl, liveUrl } =
         project;
 
+    const visibleTech = techStack.slice(0, MAX_VISIBLE_TECH);
+    const hiddenCount = techStack.length - visibleTech.length;
+
     return (
-        <div className="group flex flex-col overflow-hidden rounded-2xl glass-card p-0">
+        <div className="group flex h-[440px] flex-col overflow-hidden rounded-2xl glass-card p-0">
             {/* Preview */}
-            <div className="relative h-48 w-full overflow-hidden">
+            <div className="relative h-48 w-full shrink-0 overflow-hidden">
                 <Image
                     src={image}
                     alt={title}
@@ -35,16 +40,16 @@ export default function ProjectCard({ project }: { project: Project }) {
             {/* Body */}
             <div className="flex flex-1 flex-col gap-4 p-5">
                 <div className="space-y-1.5">
-                    <h3 className="text-lg font-semibold text-white">
+                    <h3 className="line-clamp-1 text-lg font-semibold text-white">
                         {title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-zinc-400 line-clamp-2">
+                    <p className="line-clamp-2 min-h-[2.5rem] text-sm leading-relaxed text-zinc-400">
                         {description}
                     </p>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
-                    {techStack.map((tech) => (
+                <div className="flex h-[30px] flex-wrap gap-2 overflow-hidden">
+                    {visibleTech.map((tech) => (
                         <span
                             key={tech}
                             className="rounded-full border border-purple-500/20 bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-300"
@@ -52,6 +57,11 @@ export default function ProjectCard({ project }: { project: Project }) {
                             {tech}
                         </span>
                     ))}
+                    {hiddenCount > 0 && (
+                        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-400">
+                            +{hiddenCount}
+                        </span>
+                    )}
                 </div>
 
                 <div className="mt-auto flex gap-3 pt-1">
