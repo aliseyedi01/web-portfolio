@@ -3,7 +3,6 @@
 import Image from "next/image";
 import profilePicHover from "@/assets/images/profile-final.png";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
-import { HeroConstellation } from "@/components/ui/hero-constellation";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ShimmerBorder } from "@/components/ui/shimmer-border";
@@ -45,7 +44,6 @@ export default function Hero() {
             id="hero"
         >
             <div>
-                <HeroConstellation desktopDots={300} mobileDots={75} />
                 <TooltipProvider delayDuration={200}>
                     <BlurFade delay={0.005} inView>
                         <div className="relative flex-col space-y-3 sm:space-y-4">

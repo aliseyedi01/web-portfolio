@@ -48,7 +48,7 @@ export default function RootLayout({
                         enableSystem={false}
                         storageKey="theme-preference"
                     >
-                        <StarsCanvas />
+                        {/* <StarsCanvas /> */}
                         <Navbar />
                         {children}
                     </ThemeProvider>
