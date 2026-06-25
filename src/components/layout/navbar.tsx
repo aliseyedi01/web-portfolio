@@ -11,11 +11,10 @@ import { ModeToggle } from "@/components/ui/theme-toggle";
 import { useTheme } from "next-themes";
 import { AnimatedLogo } from "@/components/ui/logo-animation";
 import { useTransitionRouter } from "next-view-transitions";
-import { CommandPaletteButton } from "@/components/ui/command-palette-button";
 import { IconBrandGithub, IconStar } from "@tabler/icons-react";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
 
-const FALLBACK_REPO_URL = "https://github.com/shivy02/portfolio-website";
+const FALLBACK_REPO_URL = "https://github.com/aliseyedi01/Next.js-Portfolio";
 
 export const Navbar = ({
     navItems,
@@ -88,7 +87,7 @@ export const Navbar = ({
                         duration: 0.2,
                     }}
                     className={cn(
-                        "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-lg fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg sm:bg-none dark:bg-background/10 sm:dark:bg-background/20 bg-background/30 z-[5000] pr-4 pl-6 py-4 items-center justify-between",
+                        "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-lg fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg sm:bg-none dark:bg-background/10 sm:dark:bg-background/20 bg-red-500 z-5000 pr-4 pl-6 py-4 items-center justify-between ",
                         className,
                     )}
                 >
@@ -135,7 +134,7 @@ export const Navbar = ({
                                 {stars}
                             </span>
                         </a>
-                        <CommandPaletteButton />
+
                         <ModeToggle />
                     </div>
                 </motion.div>

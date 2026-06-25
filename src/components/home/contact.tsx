@@ -3,13 +3,15 @@
 import Section from "@/components/layout/section";
 import SectionHeader from "@/components/layout/section-header";
 import { contactData } from "@/data/contact";
-import { IconType } from "react-icons";
+
 import { BlurFade } from "@/components/ui/blur-fade";
+
+import { ComponentType } from "react";
 
 type ContactItem = {
     label: string;
     value: string;
-    icon: IconType;
+    icon: ComponentType<{ className?: string }>;
     href: string;
 };
 
@@ -48,7 +50,7 @@ export default function Contact() {
             />
             <BlurFade delay={0.005 * 1} inView>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 max-w-4xl ">
-                    {contactData.map((item, i) => (
+                    {contactData.contact.map((item, i) => (
                         <ContactCard key={i} item={item} />
                     ))}
                 </div>

@@ -15,7 +15,8 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { data } from "@/data/data";
+
+import { contactData } from "@/data/contact";
 
 export default function Hero() {
     const { status, dotColor } = getStatus();
@@ -179,28 +180,30 @@ const getStatus = () => {
 const ContactIcons = ({ isMobile }: { isMobile: boolean }) => {
     return (
         <div className="flex flex-row items-center justify-center space-x-3 sm:space-x-4 md:space-x-6 text-foreground">
-            {data.contact.map((link) => (
-                <Tooltip key={link.label}>
-                    <TooltipTrigger asChild>
-                        <a
-                            href={link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={link.aria}
-                            className="inline-block text-foreground"
-                        >
-                            {React.cloneElement(link.icon, {
-                                className:
-                                    "scale-110 hover:scale-150 hover:animate-wiggle transition-transform duration-200",
-                                size: isMobile ? 20 : 24,
-                            })}
-                        </a>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom" className="z-50">
-                        {link.label}
-                    </TooltipContent>
-                </Tooltip>
-            ))}
+            {contactData.hero.map((link) => {
+                const Icon = link.icon;
+                return (
+                    <Tooltip key={link.label}>
+                        <TooltipTrigger asChild>
+                            <a
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={link.aria}
+                                className="inline-block text-foreground"
+                            >
+                                <Icon
+                                    className="scale-110 hover:scale-150 hover:animate-wiggle transition-transform duration-200"
+                                    size={isMobile ? 20 : 24}
+                                />
+                            </a>
+                        </TooltipTrigger>
+                        <TooltipContent side="bottom" className="z-50">
+                            {link.label}
+                        </TooltipContent>
+                    </Tooltip>
+                );
+            })}
         </div>
     );
 };

@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { StarsCanvas } from "@/components/layout/star-background";
 import { Navbar } from "@/components/layout/navbar";
-import { data } from "@/data/data";
+import { navItems } from "@/data/navItems";
 import { ViewTransitions } from "next-view-transitions";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 
@@ -49,7 +49,7 @@ export default function RootLayout({
                         storageKey="theme-preference"
                     >
                         <StarsCanvas />
-                        <Navbar navItems={data.nav} />
+                        <Navbar navItems={navItems} />
                         {children}
                     </ThemeProvider>
                 </body>
