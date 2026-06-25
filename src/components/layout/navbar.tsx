@@ -15,6 +15,7 @@ import { useTransitionRouter } from "next-view-transitions";
 import { IconBrandGithub, IconStar } from "@tabler/icons-react";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
 import { navItems } from "@/data/navItems";
+import { ResumeButton } from "../ui/resume-button";
 
 const FALLBACK_REPO_URL = "https://github.com/aliseyedi01/Next.js-Portfolio";
 
@@ -157,6 +158,7 @@ export const Navbar = () => {
                                     </button>
                                 );
                             })}
+                            <ResumeButton fileName="aliseyedi01-resume.pdf" />
                         </div>
 
                         <span
