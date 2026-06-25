@@ -1,35 +1,45 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, animate } from "motion/react";
+import { ArrowUp } from "lucide-react";
 
 export default function ScrollToTop() {
     const [isVisible, setIsVisible] = useState(false);
+    const [scrollProgress, setScrollProgress] = useState(0);
 
     useEffect(() => {
-        const toggleVisibility = () => {
-            if (window.scrollY > 300) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-            }
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            const maxScroll =
+                document.documentElement.scrollHeight - window.innerHeight;
+
+            setIsVisible(scrollY > 300);
+            const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+            setScrollProgress(progress);
         };
 
-        window.addEventListener("scroll", toggleVisibility);
-        return () => window.removeEventListener("scroll", toggleVisibility);
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        animate(window.scrollY, 0, {
+            duration: 0.6,
+            ease: [0.32, 0.72, 0, 1],
+            onUpdate: (value) => window.scrollTo(0, value),
+        });
     };
+
+    const radius = 24;
+    const circumference = 2 * Math.PI * radius;
+    const strokeDashoffset = circumference - scrollProgress * circumference;
 
     return (
         <motion.button
             onClick={scrollToTop}
             aria-label="Scroll to top"
-            className="fixed bottom-6 end-6 z-40 w-12 h-12 rounded-full
-                 bg-blue-500 hover:bg-blue-600 text-white shadow-lg
-                 flex items-center justify-center"
+            className="fixed bottom-6 end-6 z-40 w-14 h-14 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{
                 opacity: isVisible ? 1 : 0,
@@ -39,20 +49,36 @@ export default function ScrollToTop() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
         >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
-            >
-                <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 10l7-7m0 0l7 7m-7-7v18"
-                />
-            </svg>
+            <div className="relative w-14 h-14">
+                <svg className="w-14 h-14 -rotate-90">
+                    <circle
+                        cx="28"
+                        cy="28"
+                        r={radius}
+                        stroke="rgba(59, 130, 246, 0.1)"
+                        strokeWidth="3"
+                        fill="none"
+                    />
+                    <circle
+                        cx="28"
+                        cy="28"
+                        r={radius}
+                        stroke="rgb(59, 130, 246)"
+                        strokeWidth="3"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeDasharray={circumference}
+                        strokeDashoffset={strokeDashoffset}
+                        className="transition-[stroke-dashoffset] duration-150"
+                    />
+                </svg>
+
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-600 text-white shadow-lg flex items-center justify-center transition-all duration-200">
+                        <ArrowUp className="h-5 w-5" strokeWidth={2.5} />
+                    </div>
+                </div>
+            </div>
         </motion.button>
     );
 }

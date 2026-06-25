@@ -295,6 +295,7 @@ body {
   }
 }
 
+
 /* ===== SHIKI CODE THEME ===== */
 html:not(.dark) code[data-theme],
 html:not(.dark) code[data-theme] span {
@@ -387,4 +388,5 @@ html.dark code[data-theme] span {
     hover:scale-[1.02];
   }
 }
+
 
