@@ -67,7 +67,7 @@ const SoftSkills = () => (
             return (
                 <div
                     key={i}
-                    className="flex items-center gap-3 px-4 py-4 glass-card"
+                    className="flex items-center gap-3 px-4 py-4 glass-card "
                 >
                     <Icon className="text-blue-600 dark:text-blue-400 text-lg" />
                     <span className="text-slate-700 dark:text-gray-200 text-sm md:text-base">
