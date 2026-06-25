@@ -48,9 +48,13 @@ export interface SkillData {
     iconColor: string;
 }
 
+import { TbDatabase } from "react-icons/tb"; // add this import
+
 export interface SkillCategory {
     title: string;
     hint?: string;
+    icon: ReactNode; // NEW: category icon shown in the header
+    level: string; // NEW: proficiency badge text, e.g. "Strong Skills"
     skills: SkillData[];
 }
 
@@ -325,17 +329,42 @@ export const frontendSkills: SkillData[] = [
 ];
 
 // Combined Skill Categories
+
 export const skillCategories: SkillCategory[] = [
-    { title: "Frontend & UI", skills: frontendSkills },
-    { title: "Backend & APIs", skills: backendSkills },
-    { title: "Databases & modeling", skills: databaseSkills },
-    { title: "Architecture", skills: architectureSkills },
+    {
+        title: "Frontend & UI",
+        icon: <FaReact />,
+        level: "Strong Skills",
+        skills: frontendSkills,
+    },
+    {
+        title: "Backend & APIs",
+        icon: <FaNodeJs />,
+        level: "Strong Skills",
+        skills: backendSkills,
+    },
+    {
+        title: "Databases & modeling",
+        icon: <TbDatabase />,
+        level: "Solid Skills",
+        skills: databaseSkills,
+    },
+    {
+        title: "Architecture",
+        icon: <TbTopologyStar3 />,
+        level: "Solid Skills",
+        skills: architectureSkills,
+    },
     {
         title: "DevOps & Monitoring",
+        icon: <SiDocker />,
+        level: "Strong Skills",
         skills: devOpsSkills,
     },
     {
         title: "AI Tools & Agents",
+        icon: <BsClaude />,
+        level: "Daily Use",
         skills: aiSkills,
     },
 ];
