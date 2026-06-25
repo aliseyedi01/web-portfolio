@@ -9,10 +9,14 @@ import { cn } from "@/lib/utils";
 interface ResumeButtonProps {
     fileName?: string;
     className?: string;
+    layoutId?: string;
+    activeClassName?: string;
 }
 
 export function ResumeButton({
     fileName = "resume.pdf",
+    layoutId = "navbar-active-pill",
+    activeClassName = "bg-linear-to-r from-blue-500 to-blue-600 dark:from-blue-500 dark:to-indigo-600 shadow-md shadow-blue-500/30",
     className,
 }: ResumeButtonProps) {
     const [open, setOpen] = useState(false);
@@ -30,23 +34,25 @@ export function ResumeButton({
     }, []);
 
     const resumePath = `/${fileName}`;
-    console.log("resume", resumePath);
 
     return (
         <div ref={ref} className={cn("relative", className)}>
             <button
                 onClick={() => setOpen((o) => !o)}
                 className={cn(
-                    "relative font-semibold flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors duration-300",
+                    "relative font-semibold flex items-center gap-1 rounded-full px-3 py-1 md:py-1.5 text-sm transition-colors duration-300",
                     open
-                        ? "text-white"
+                        ? "text-foreground dark:text-white"
                         : "text-muted-foreground hover:text-foreground",
                 )}
             >
                 {open && (
                     <motion.span
-                        layoutId="navbar-active-pill"
-                        className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500 to-blue-600 dark:from-blue-500 dark:to-indigo-600 shadow-md shadow-blue-500/30"
+                        {...(layoutId ? { layoutId } : {})}
+                        className={cn(
+                            "absolute inset-0 rounded-full",
+                            activeClassName,
+                        )}
                         transition={{
                             type: "spring",
                             stiffness: 400,
@@ -54,7 +60,16 @@ export function ResumeButton({
                         }}
                     />
                 )}
-                <span className="relative z-10 hidden sm:block">Resume</span>
+                <span
+                    className={cn(
+                        "relative z-10",
+                        layoutId
+                            ? "hidden sm:block"
+                            : "block text-xs md:text-md pt-0.5",
+                    )}
+                >
+                    Resume
+                </span>
                 <motion.span
                     className="relative z-10"
                     animate={{ rotate: open ? 180 : 0 }}
@@ -71,7 +86,7 @@ export function ResumeButton({
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -6, scale: 0.97 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-44 rounded-xl border border-blue-400/20 dark:border-blue-500/15 bg-white/90 dark:bg-background/90 backdrop-blur-xl shadow-lg shadow-blue-500/10 overflow-hidden z-50"
+                        className="absolute top-full mt-2 left-1/2 -translate-x-1/3  md:-translate-x-1/4 w-38 md:w-44 rounded-xl border border-blue-400/20 dark:border-blue-500/15 bg-white/90 dark:bg-background/90 backdrop-blur-xl shadow-lg shadow-blue-500/10 overflow-hidden z-50"
                     >
                         {/* View - opens in new browser tab */}
                         <a
@@ -79,7 +94,7 @@ export function ResumeButton({
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => setOpen(false)}
-                            className="flex items-center gap-2.5 px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-colors"
+                            className="flex items-center gap-2.5 px-2 py-1 md:px-4 md:py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-colors"
                         >
                             <IconEye className="h-4 w-4 shrink-0" />
                             View Resume
@@ -90,7 +105,7 @@ export function ResumeButton({
                             href={resumePath}
                             download={fileName}
                             onClick={() => setOpen(false)}
-                            className="flex items-center gap-2.5 px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-colors"
+                            className="flex items-center gap-2.5 px-2 py-1 md:px-4 md:py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-colors"
                         >
                             <IconDownload className="h-4 w-4 shrink-0" />
                             Download

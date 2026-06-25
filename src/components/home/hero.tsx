@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/tooltip";
 
 import { contactData } from "@/data/contact";
+import { ResumeButton } from "../ui/resume-button";
 
 export default function Hero() {
     const { status, dotColor } = getStatus();
@@ -103,36 +104,44 @@ export default function Hero() {
                                     direction="down"
                                     inView
                                 >
-                                    <div className="z-50 flex flex-col sm:flex-row items-center justify-start sm:justify-center gap-2 sm:gap-3 md:gap-5">
+                                    <div className="z-50 flex flex-col-reverse sm:flex-row items-start justify-start sm:justify-center gap-2 sm:gap-3 md:gap-5 ">
                                         <ContactIcons isMobile={isMobile} />
                                         <span
                                             className="hidden sm:block size-5 w-px bg-border"
                                             aria-hidden
                                         />
                                         <span
-                                            className="block sm:hidden w-16 sm:w-20 h-px bg-border"
+                                            className="hidden sm:hidden w-16 sm:w-20 h-px bg-border"
                                             aria-hidden
                                         />
-                                        <a
-                                            ref={ctaRef}
-                                            onMouseMove={handleCtaMove}
-                                            href="#projects"
-                                            className="group relative inline-flex items-center gap-1.5 sm:gap-2 overflow-hidden rounded-full border border-border bg-background/40 backdrop-blur-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs md:text-sm font-medium transition-colors hover:text-foreground text-foreground/80"
-                                        >
-                                            <span
-                                                aria-hidden
-                                                className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
-                                                style={{
-                                                    background:
-                                                        "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
-                                                }}
+                                        <div className="flex max-md:-translate-x-1 md:gap-2">
+                                            <a
+                                                ref={ctaRef}
+                                                onMouseMove={handleCtaMove}
+                                                href="#projects"
+                                                className="group relative inline-flex items-center gap-1.5 sm:gap-2 overflow-hidden rounded-full border border-border bg-background/40 backdrop-blur-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs md:text-sm font-medium transition-colors hover:text-foreground text-foreground/80"
+                                            >
+                                                <span
+                                                    aria-hidden
+                                                    className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                                                    style={{
+                                                        background:
+                                                            "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                                                    }}
+                                                />
+                                                <span className="relative whitespace-nowrap">
+                                                    View my work
+                                                </span>
+                                                <IconArrowRight className="relative size-2.5 sm:size-3 md:size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                                                <ShimmerBorder />
+                                            </a>
+                                            <ResumeButton
+                                                fileName="aliseyedi01-resume.pdf"
+                                                activeClassName="bg-background border border-border shadow-none md:px-1"
+                                                className="rounded-full border border-border bg-background/80 backdrop-blur-sm py-0 text-[10px] md:text-sm font-medium "
+                                                layoutId=""
                                             />
-                                            <span className="relative whitespace-nowrap">
-                                                View my work
-                                            </span>
-                                            <IconArrowRight className="relative size-2.5 sm:size-3 md:size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                                            <ShimmerBorder />
-                                        </a>
+                                        </div>
                                     </div>
                                 </BlurFade>
                             </div>
@@ -182,7 +191,7 @@ const getStatus = () => {
 
 const ContactIcons = ({ isMobile }: { isMobile: boolean }) => {
     return (
-        <div className="flex flex-row items-center justify-center space-x-3 sm:space-x-4 md:space-x-6 text-foreground">
+        <div className="flex flex-row items-center justify-center max-md:mt-1.5 space-x-4 sm:space-x-4 md:space-x-6 text-foreground">
             {contactData.hero.map((link) => {
                 const Icon = link.icon;
                 return (
