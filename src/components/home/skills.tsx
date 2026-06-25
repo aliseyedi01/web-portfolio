@@ -40,7 +40,7 @@ function SkillCategoryPanel({ title, hint, skills }: SkillCategory) {
 
 export default function Skills() {
     return (
-        <Section id="skills" className="h-screen">
+        <Section id="skills" className="h-full md:min-h-screen w-full">
             <SectionHeader
                 title="02 — SKILLS"
                 subtitle="Tools I build with."

@@ -40,7 +40,7 @@ const ContactCard = ({ item }: { item: ContactItem }) => {
 
 export default function Contact() {
     return (
-        <Section id="contact" className="h-full md:min-h-scree mx-auto">
+        <Section id="contact" className="h-full md:min-h-screen w-full">
             <SectionHeader
                 title="04 - CONTACT"
                 subtitle="Let's build something together."
