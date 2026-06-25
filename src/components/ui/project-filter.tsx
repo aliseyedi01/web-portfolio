@@ -4,10 +4,10 @@ import { ProjectCategory } from "@/types/project";
 
 const filters: ("All" | ProjectCategory)[] = [
     "All",
-    "Fullstack",
     "Frontend",
     "Backend",
     "Bot",
+    // "Fullstack",
 ];
 
 export default function ProjectFilter({
@@ -25,10 +25,10 @@ export default function ProjectFilter({
                     <button
                         key={filter}
                         onClick={() => onChange(filter)}
-                        className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
+                        className={`rounded-2xl px-5 py-2 text-sm font-medium transition-colors ${
                             isActive
-                                ? "bg-linear-to-r from-pink-500 to-purple-600 text-white"
-                                : "bg-zinc-800/60 text-zinc-300 hover:bg-zinc-800"
+                                ? "bg-linear-to-r from-blue-500 to-blue-600 text-white ring-[1.5px] ring-blue-400 ring-offset-2 ring-offset-zinc-900 shadow-lg shadow-blue-500/30"
+                                : "bg-blue-950/60 text-blue-300 hover:bg-blue-900/80"
                         }`}
                     >
                         {filter}

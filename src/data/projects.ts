@@ -88,4 +88,15 @@ export const projects: Project[] = [
         codeUrl: "https://github.com/aliseyedi01/Next.js-Portfolio",
         liveUrl: "https://portfolio-aliseyedi01.vercel.app/",
     },
+    {
+        id: "Telegram-Bot-Challenge",
+        title: "Telegram Bot Challenge",
+        description:
+            "A telegram bot built for  daily commits and streak",
+        image: "/projects/telegram-bot-challenge.png",
+        category: "Bot",
+        techStack: ["Next.js", "TypeScript", "TailwindCSS", "I18n", "Shadcn UI"],
+        codeUrl: "https://github.com/aliseyedi01/Telegram-Bot-Challenge",
+        liveUrl: "https://t.me/footbalgrassbot",
+    },
 ];
