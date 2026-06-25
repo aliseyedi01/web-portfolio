@@ -78,7 +78,7 @@ export const Navbar = () => {
                         duration: 0.2,
                     }}
                     className={cn(
-                        "flex max-w-7xl w-full justify-self-center backdrop-blur-3xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg bg-white/70 dark:bg-background/10 sm:bg-white/80 sm:dark:bg-background/20 z-50 pr-4 pl-6 py-4 items-center justify-between border border-blue-300/20 dark:border-blue-400/10 shadow-sm dark:shadow-blue-500/5 transition-colors duration-300",
+                        "flex max-w-6xl w-full justify-self-center backdrop-blur-3xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg bg-white/70 dark:bg-background/10 sm:bg-white/80 sm:dark:bg-background/20 z-50 pr-4 pl-6 py-4 items-center justify-between border border-blue-300/20 dark:border-blue-400/10 shadow-sm dark:shadow-blue-500/5 transition-colors duration-300",
                     )}
                 >
                     <div className="flex items-center mr-4 sm:mr-16 text-foreground">
