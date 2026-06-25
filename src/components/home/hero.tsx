@@ -192,7 +192,7 @@ const ContactIcons = ({ isMobile }: { isMobile: boolean }) => {
                                 href={link.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label={link.aria}
+                                aria-label={link.label}
                                 className="inline-block text-foreground"
                             >
                                 <Icon
