@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     motion,
     AnimatePresence,
@@ -16,8 +16,19 @@ import { IconBrandGithub, IconStar } from "@tabler/icons-react";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
 import { navItems } from "@/data/navItems";
 import { ResumeButton } from "../ui/resume-button";
+import { useActiveSection } from "@/hooks/userActiveSection";
 
 const FALLBACK_REPO_URL = "https://github.com/aliseyedi01/Next.js-Portfolio";
+
+// Section IDs for active section detection
+const SECTION_IDS = [
+    "hero",
+    "about",
+    "skills",
+    "experience",
+    "projects",
+    "contact",
+];
 
 export const Navbar = () => {
     const { resolvedTheme } = useTheme();
@@ -33,6 +44,16 @@ export const Navbar = () => {
     const [activeLink, setActiveLink] = useState<string>("");
 
     const router = useTransitionRouter();
+
+    // Get active section from hook
+    const activeSection = useActiveSection(SECTION_IDS);
+
+    // Update activeLink when activeSection changes
+    useEffect(() => {
+        if (activeSection) {
+            setActiveLink(activeSection);
+        }
+    }, [activeSection]);
 
     useMotionValueEvent(scrollY, "change", (current) => {
         if (disableHide) {
@@ -107,7 +128,6 @@ export const Navbar = () => {
                         duration: 0.2,
                     }}
                     className={cn(
-                        // Hidden on mobile — <MobileNavbar /> handles small screens now.
                         "hidden sm:flex max-w-6xl w-full justify-self-center backdrop-blur-3xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg bg-white/70 dark:bg-background/10 sm:bg-white/80 sm:dark:bg-background/20 z-50 pr-4 pl-6 py-2 items-center justify-between border border-blue-400/40 dark:border-blue-500/25 shadow-sm shadow-blue-500/5 dark:shadow-blue-500/10 transition-colors",
                     )}
                 >
