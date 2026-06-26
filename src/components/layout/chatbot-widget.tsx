@@ -2,9 +2,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Bot, Loader2, Send, X } from "lucide-react";
+import { Bot, Loader2, Send, Sparkles, X } from "lucide-react";
 import useSound from "use-sound";
-
+import { motion } from "motion/react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -117,34 +117,48 @@ export default function ChatbotWidget({
     return (
         <>
             {/* Floating button */}
-            <div className="fixed bottom-6 right-6 z-50">
+            <div className="fixed bottom-3 md:bottom-6 right-6 z-50">
                 {showHint && !isOpen && (
-                    <div
+                    <motion.div
                         ref={hintRef}
-                        className="absolute bottom-20 right-0 w-66 rounded-2xl border border-cyan-500/30 bg-slate-950/95 p-4 text-white shadow-2xl backdrop-blur-xl"
+                        initial={{ opacity: 0, x: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, x: 20, scale: 0.9 }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 22,
+                        }}
+                        className="fixed bottom-22 right-6 z-50"
                     >
-                        <button
-                            onClick={() => {
-                                setIsOpen((v) => !v);
-                                setShowHint(false);
-                            }}
-                            className="absolute right-2 top-2 text-slate-500 hover:text-white"
-                        >
-                            <X size={14} />
-                        </button>
+                        <div className="relative  bg-white dark:bg-slate-950/95 border border-cyan-500/20 rounded-2xl rounded-br-sm px-4 py-3 shadow-xl shadow-primary/10 max-w-60">
+                            {/* Dismiss Button */}
+                            <button
+                                onClick={() => {
+                                    setShowHint(false);
+                                }}
+                                className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-muted border border-border text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors"
+                                aria-label="Dismiss"
+                            >
+                                <X className="size-3" />
+                            </button>
 
-                        <div className="space-y-2">
-                            <p className="size-xs font-semibold">
-                                ✨ I know it all
-                            </p>
+                            {/* Content */}
+                            <div className="flex items-center gap-2 mb-1">
+                                <Sparkles className="w-3 h-3 text-primary shrink-0" />
+                                <span className="text-lg font-semibold text-foreground">
+                                    I know it all
+                                </span>
+                            </div>
 
-                            <p className="text-sm text-slate-400">
+                            <p className="text-md text-muted-foreground leading-snug">
                                 Ask about my projects, skills or experience →
                             </p>
-                        </div>
 
-                        <div className="absolute -bottom-2 right-8 h-4 w-4 rotate-45 border-r border-b border-cyan-500/30 bg-slate-950" />
-                    </div>
+                            {/* Arrow pointing to button */}
+                            <div className="absolute -bottom-2 right-4 w-3 h-3 bg-background dark:bg-background border-r border-b border-cyan-500/20  rotate-45" />
+                        </div>
+                    </motion.div>
                 )}
 
                 <button
@@ -153,14 +167,12 @@ export default function ChatbotWidget({
                         setShowHint(false);
                     }}
                     aria-label={isOpen ? "Close chat" : "Open chat"}
-                    className="flex h-12 items-center gap-3 rounded-full bg-linear-to-r from-cyan-500 to-indigo-500 px-6 text-white shadow-lg shadow-cyan-500/30 transition hover:scale-105"
+                    className="flex h-10 px-3 items-center gap-3 rounded-full bg-linear-to-r from-cyan-500 to-indigo-500  text-white shadow-lg shadow-cyan-500/30 transition hover:scale-105"
                 >
                     <Bot size={20} />
-
-                    <span className="font-medium ">Ask AI About Me</span>
+                    <span className="font-medium text-sm">Ask AI About Me</span>
                 </button>
             </div>
-
             {/* Chat panel */}
             {isOpen && (
                 <div className="fixed bottom-24 right-6 z-50 flex  h-130 w-90 max-w-[90vw] flex-col overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-950/95 shadow-2xl backdrop-blur-xl">
@@ -202,7 +214,7 @@ export default function ChatbotWidget({
                                     <button
                                         key={q}
                                         onClick={() => sendMessage(q)}
-                                        className="block w-full rounded-lg border border-white/5 bg-white/[0.03] px-3 py-2 text-left text-sm text-slate-200 transition hover:border-cyan-500/30 hover:bg-white/[0.06]"
+                                        className="block w-full rounded-lg border border-white/5 bg-white/3 px-3 py-2 text-left text-sm text-slate-200 transition hover:border-cyan-500/30 hover:bg-white/6"
                                     >
                                         {q}
                                     </button>
@@ -255,7 +267,7 @@ export default function ChatbotWidget({
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder={placeholder}
-                            className="flex-1 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-500/50"
+                            className="flex-1 rounded-lg border border-white/10 bg-white/3 px-3 py-2 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-500/50"
                         />
                         <button
                             type="submit"

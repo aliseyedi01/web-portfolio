@@ -241,6 +241,12 @@ body {
   --color-3: oklch(72% 0.24 280);
   --color-4: oklch(88% 0.14 215);
   --color-5: oklch(83% 0.15 210);
+  --hint-bg: var(--background);
+  --hint-border: var(--primary);
+  --hint-text: var(--foreground);
+--hint-bg: var(--background);
+  --hint-border: var(--primary);
+  --hint-text: var(--foreground);
 }
 
 /* ===== FADE MASKS ===== */
