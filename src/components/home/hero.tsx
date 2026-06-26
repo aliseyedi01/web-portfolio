@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import profilePicHover from "@/assets/images/profile-final.png";
-import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ShimmerBorder } from "@/components/ui/shimmer-border";
@@ -17,6 +16,10 @@ import {
 
 import { contactData } from "@/data/contact";
 import { ResumeButton } from "../ui/resume-button";
+
+// ===== STATUS CONFIGURATION =====
+// true = Open to Work, false = Not Available
+const IS_OPEN_TO_WORK = true;
 
 export default function Hero() {
     const { status, dotColor } = getStatus();
@@ -55,14 +58,14 @@ export default function Hero() {
                                             className={`absolute size-1.5 sm:size-2 rounded-full border ${
                                                 dotColor === "green"
                                                     ? "border-green-600/80 bg-green-500 animate-ping"
-                                                    : "border-orange-600/80 bg-orange-500 animate-ping"
+                                                    : "border-red-600/80 bg-red-500 animate-ping"
                                             } mr-1.5 sm:mr-2`}
                                         />
                                         <div
                                             className={`relative size-1 sm:size-1.5 rounded-full border ${
                                                 dotColor === "green"
                                                     ? "border-green-600/80 bg-green-500 animate-pulse"
-                                                    : "border-orange-600/80 bg-orange-500 animate-pulse"
+                                                    : "border-red-600/80 bg-red-500 animate-pulse"
                                             } mr-1.5 sm:mr-2`}
                                         />
                                     </div>
@@ -72,7 +75,7 @@ export default function Hero() {
                                 </ShimmerButton>
                             </div>
 
-                            {/* Hero Text - Updated with theme colors */}
+                            {/* Hero Text */}
                             <div className="w-full space-y-3 sm:space-y-4 md:space-y-6">
                                 <BlurFade delay={0.005 * 1} inView>
                                     <div className="z-50 subpixel-antialiased text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-left space-y-1 sm:space-y-2 md:space-y-3">
@@ -117,11 +120,11 @@ export default function Hero() {
                                                 ref={ctaRef}
                                                 onMouseMove={handleCtaMove}
                                                 href="#projects"
-                                                className="group relative inline-flex items-center gap-1.5 sm:gap-2 overflow-hidden rounded-full border border-border bg-background/40 backdrop-blur-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs md:text-sm font-medium s hover:text-foreground text-foreground/80"
+                                                className="group relative inline-flex items-center gap-1.5 sm:gap-2 overflow-hidden rounded-full border border-border bg-background/40 backdrop-blur-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs md:text-sm font-medium hover:text-foreground text-foreground/80"
                                             >
                                                 <span
                                                     aria-hidden
-                                                    className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity  group-hover:opacity-20"
+                                                    className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity group-hover:opacity-20"
                                                     style={{
                                                         background:
                                                             "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
@@ -136,7 +139,7 @@ export default function Hero() {
                                             <ResumeButton
                                                 fileName="aliseyedi01-resume.pdf"
                                                 activeClassName="bg-background border border-border shadow-none md:px-1"
-                                                className="rounded-full border border-border bg-background/80 backdrop-blur-sm py-0 text-[10px] md:text-sm font-medium "
+                                                className="rounded-full border border-border bg-background/80 backdrop-blur-sm py-0 text-[10px] md:text-sm font-medium"
                                                 layoutId=""
                                             />
                                         </div>
@@ -150,19 +153,6 @@ export default function Hero() {
 
             {/* Profile Image */}
             <BlurFade delay={0.005} inView>
-                {/* <BackgroundGradient className="z-50 size-40 sm:size-48 md:size-52 lg:size-64 xl:size-96 shrink-0">
-                    <div className="size-full rounded-full">
-                        <Image
-                            src={profilePicHover}
-                            alt="Profile Picture Hover"
-                            className="size-full object-cover rounded-full transition-opacity duration-200"
-                            width={400}
-                            height={400}
-                            loading="eager"
-                            priority
-                        />
-                    </div>
-                </BackgroundGradient> */}
                 <div className="z-50 size-40 sm:size-48 md:size-52 lg:size-64 xl:size-96 shrink-0">
                     <div className="size-full rounded-full">
                         <Image
@@ -184,19 +174,10 @@ export default function Hero() {
 // ===== Helper Functions & Sub-Components =====
 
 const getStatus = () => {
-    const now = new Date();
-    const localTime = new Intl.DateTimeFormat("en-US", {
-        timeZone: "Asia/Tehran",
-        hour: "numeric",
-        hour12: false,
-    }).format(now);
-
-    const currentHour = parseInt(localTime, 10);
-
-    if (currentHour >= 8 && currentHour < 12) {
-        return { status: "Available for new roles", dotColor: "green" };
+    if (IS_OPEN_TO_WORK) {
+        return { status: "Open to Work", dotColor: "green" };
     } else {
-        return { status: "Away", dotColor: "amber" };
+        return { status: "Not Available", dotColor: "red" };
     }
 };
 
