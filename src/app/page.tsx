@@ -12,7 +12,7 @@ export default function Home() {
         <div className="flex flex-col flex-1 items-center justify-center font-sans">
             <SectionNav />
             <ScrollToTop />
-            <main className="flex items-center justify-center flex-col h-full max-w-6xl max-md:px-3">
+            <main className="flex items-center justify-center flex-col h-full max-w-6xl max-md:px-2">
                 <Hero />
                 <About />
                 <Skills />

@@ -44,7 +44,7 @@ export function ResumeButton({
                 <button
                     onClick={() => setOpen((o) => !o)}
                     className={cn(
-                        "relative font-semibold flex items-center gap-1 rounded-full px-3 py-1 md:py-1.5 text-sm transition-colors duration-300",
+                        "relative font-semibold flex items-center gap-2 rounded-full px-3 py-1 md:py-1.5 text-sm transition-colors duration-300",
                         open
                             ? "text-foreground dark:text-white"
                             : "text-muted-foreground hover:text-foreground",
@@ -69,7 +69,7 @@ export function ResumeButton({
                             "relative z-10",
                             layoutId
                                 ? "hidden sm:block"
-                                : "block text-xs md:text-md pt-0.5",
+                                : "block text-sm md:text-[16px] md:pt-0.5",
                         )}
                     >
                         Resume

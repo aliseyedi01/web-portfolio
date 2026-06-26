@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import profilePicHover from "@/assets/images/profile-final.png";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -13,12 +12,10 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 import { contactData } from "@/data/contact";
 import { ResumeButton } from "../ui/resume-button";
 
 // ===== STATUS CONFIGURATION =====
-// true = Open to Work, false = Not Available
 const IS_OPEN_TO_WORK = true;
 
 export default function Hero() {
@@ -43,33 +40,34 @@ export default function Hero() {
 
     return (
         <div
-            className="relative flex flex-col-reverse lg:flex-row items-center justify-center overflow-hidden h-screen gap-6 sm:gap-8 lg:gap-16 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-0 min-h-screen lg:min-h-0"
+            className="relative flex flex-col-reverse lg:flex-row items-center justify-center overflow-hidden min-h-screen lg:h-screen gap-7 sm:gap-10 lg:gap-16 px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-0"
             id="hero"
         >
-            <div>
+            {/* Left Content */}
+            <div className=" flex flex-col justify-center">
                 <TooltipProvider delayDuration={200}>
                     <BlurFade delay={0.005} inView>
-                        <div className="relative flex-col space-y-3 sm:space-y-4">
+                        <div className="flex flex-col space-y-4 sm:space-y-5">
                             {/* Status Button */}
-                            <div className="relative flex flex-col items-start justify-center">
-                                <ShimmerButton className="z-50 mt-2 sm:mt-4 md:mt-8">
+                            <div className="relative flex flex-col items-start">
+                                <ShimmerButton className="z-50 mt-1 sm:mt-4">
                                     <div className="z-50 relative flex items-center justify-center">
                                         <div
-                                            className={`absolute size-1.5 sm:size-2 rounded-full border ${
+                                            className={`absolute size-1.5 rounded-full border ${
                                                 dotColor === "green"
                                                     ? "border-green-600/80 bg-green-500 animate-ping"
                                                     : "border-red-600/80 bg-red-500 animate-ping"
-                                            } mr-1.5 sm:mr-2`}
+                                            } mr-1.5`}
                                         />
                                         <div
-                                            className={`relative size-1 sm:size-1.5 rounded-full border ${
+                                            className={`relative size-1 rounded-full border ${
                                                 dotColor === "green"
                                                     ? "border-green-600/80 bg-green-500 animate-pulse"
                                                     : "border-red-600/80 bg-red-500 animate-pulse"
-                                            } mr-1.5 sm:mr-2`}
+                                            } mr-1.5`}
                                         />
                                     </div>
-                                    <span className="whitespace-pre-wrap text-center leading-none text-muted-foreground text-[10px] sm:text-xs md:text-sm py-[0.5]">
+                                    <span className="whitespace-pre-wrap text-center leading-none text-muted-foreground text-xs sm:text-sm py-0.5">
                                         {status}
                                     </span>
                                 </ShimmerButton>
@@ -78,12 +76,12 @@ export default function Hero() {
                             {/* Hero Text */}
                             <div className="w-full space-y-3 sm:space-y-4 md:space-y-6">
                                 <BlurFade delay={0.005 * 1} inView>
-                                    <div className="z-50 subpixel-antialiased text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-left space-y-1 sm:space-y-2 md:space-y-3">
-                                        <div className="bg-linear-to-b from-slate-500 to-slate-900 dark:from-slate-300 dark:to-white bg-clip-text text-transparent text-2xl sm:text-4xl md:text-5xl lg:text-6xl pl-1">
+                                    <div className="subpixel-antialiased text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-left space-y-1">
+                                        <div className="bg-linear-to-b from-slate-500 to-slate-900 dark:from-slate-300 dark:to-white bg-clip-text text-transparent">
                                             Hello. I&apos;m
                                         </div>
-                                        <div className="bg-linear-to-b from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-transparent">
-                                            <span className="font-script font-normal text-[1.05em] leading-none align-baseline">
+                                        <div className="bg-linear-to-b from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent">
+                                            <span className="font-script font-normal text-[1.08em] leading-none align-baseline">
                                                 Ali Seyedi
                                             </span>
                                         </div>
@@ -91,36 +89,32 @@ export default function Hero() {
                                 </BlurFade>
 
                                 <BlurFade delay={0.005 * 2} inView>
-                                    <p className="text-xs sm:text-sm md:text-base lg:text-xl xl:text-2xl subpixel-antialiased tracking-tight font-medium text-left text-foreground/90">
+                                    <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl tracking-tight font-medium text-left text-foreground/90">
                                         A FullStack Developer who likes{" "}
-                                        <span className="font-script font-normal text-[1.05em] leading-none align-baseline text-blue-600 dark:text-cyan-300">
+                                        <span className="font-script font-normal text-[1.08em] leading-none align-baseline text-blue-600 dark:text-cyan-300">
                                             building things
                                         </span>
                                     </p>
                                 </BlurFade>
 
-                                {/* Contact Icons & CTA */}
+                                {/* Contact + CTA */}
                                 <BlurFade
                                     delay={0.005 * 2}
                                     direction="down"
                                     inView
                                 >
-                                    <div className="z-50 flex flex-col-reverse sm:flex-row items-start justify-start sm:justify-center gap-2 sm:gap-3 md:gap-5 ">
+                                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
                                         <ContactIcons isMobile={isMobile} />
                                         <span
-                                            className="hidden sm:block size-5 w-px bg-border"
+                                            className="hidden sm:block w-px h-5 bg-border"
                                             aria-hidden
                                         />
-                                        <span
-                                            className="hidden sm:hidden w-16 sm:w-20 h-px bg-border"
-                                            aria-hidden
-                                        />
-                                        <div className="flex max-md:-translate-x-1 md:gap-2">
+                                        <div className="flex gap-3 w-full sm:w-auto">
                                             <a
                                                 ref={ctaRef}
                                                 onMouseMove={handleCtaMove}
                                                 href="#projects"
-                                                className="group relative inline-flex items-center gap-1.5 sm:gap-2 overflow-hidden rounded-full border border-border bg-background/40 backdrop-blur-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs md:text-sm font-medium hover:text-foreground text-foreground/80"
+                                                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border bg-background/40 backdrop-blur-sm px-5 py-2.5 text-sm font-medium hover:text-foreground text-foreground/80 flex-1 sm:flex-none justify-center sm:justify-start"
                                             >
                                                 <span
                                                     aria-hidden
@@ -133,13 +127,14 @@ export default function Hero() {
                                                 <span className="relative whitespace-nowrap">
                                                     View my work
                                                 </span>
-                                                <IconArrowRight className="relative size-2.5 sm:size-3 md:size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                                                <IconArrowRight className="relative size-4 transition-transform duration-300 group-hover:translate-x-1" />
                                                 <ShimmerBorder />
                                             </a>
+
                                             <ResumeButton
                                                 fileName="aliseyedi01-resume.pdf"
-                                                activeClassName="bg-background border border-border shadow-none md:px-1"
-                                                className="rounded-full border border-border bg-background/80 backdrop-blur-sm py-0 text-[10px] md:text-sm font-medium"
+                                                activeClassName="bg-background shadow-none"
+                                                className="rounded-full border border-border bg-background/80 backdrop-blur-sm px-5 py-1.5 md:py-2 text-sm font-medium"
                                                 layoutId=""
                                             />
                                         </div>
@@ -151,16 +146,16 @@ export default function Hero() {
                 </TooltipProvider>
             </div>
 
-            {/* Profile Image */}
+            {/* Profile Image - Improved for mobile */}
             <BlurFade delay={0.005} inView>
-                <div className="z-50 size-40 sm:size-48 md:size-52 lg:size-64 xl:size-96 shrink-0">
-                    <div className="size-full rounded-full">
+                <div className="relative flex justify-center lg:justify-end shrink-0 ">
+                    <div className="size-52 sm:size-64 md:size-72 lg:size-80 xl:size-96 rounded-full shadow-xl overflow-hidden">
                         <Image
                             src={profilePicHover}
-                            alt="Profile Picture Hover"
-                            className="size-full object-cover rounded-full transition-opacity duration-200"
-                            width={400}
-                            height={400}
+                            alt="Ali Seyedi - Profile"
+                            className="size-full object-cover rounded-full hover:scale-105 transition-transform duration-500"
+                            width={500}
+                            height={500}
                             loading="eager"
                             priority
                         />
@@ -172,7 +167,6 @@ export default function Hero() {
 }
 
 // ===== Helper Functions & Sub-Components =====
-
 const getStatus = () => {
     if (IS_OPEN_TO_WORK) {
         return { status: "Open to Work", dotColor: "green" };
@@ -183,7 +177,7 @@ const getStatus = () => {
 
 const ContactIcons = ({ isMobile }: { isMobile: boolean }) => {
     return (
-        <div className="flex flex-row items-center justify-center max-md:mt-1.5 space-x-4 sm:space-x-4 md:space-x-6 text-foreground">
+        <div className="flex flex-row items-center justify-center sm:justify-start gap-6 text-foreground">
             {contactData.hero.map((link) => {
                 const Icon = link.icon;
                 return (
@@ -194,11 +188,11 @@ const ContactIcons = ({ isMobile }: { isMobile: boolean }) => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label={link.label}
-                                className="inline-block text-foreground"
+                                className="inline-block text-foreground hover:text-primary transition-colors"
                             >
                                 <Icon
-                                    className="scale-110 hover:scale-150 hover:animate-wiggle transition-transform duration-200"
-                                    size={isMobile ? 20 : 24}
+                                    className="hover:scale-125 hover:animate-wiggle transition-transform duration-200"
+                                    size={isMobile ? 26 : 28}
                                 />
                             </a>
                         </TooltipTrigger>
