@@ -39,7 +39,7 @@ export default function ScrollToTop() {
         <motion.button
             onClick={scrollToTop}
             aria-label="Scroll to top"
-            className="fixed bottom-6 end-6 z-40 w-14 h-14 flex items-center justify-center"
+            className="fixed bottom-2 md:bottom-4 inset-s-4  md:inset-s-6 z-40 size-14 md:size-16 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{
                 opacity: isVisible ? 1 : 0,

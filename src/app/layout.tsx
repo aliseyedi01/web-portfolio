@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/navbar";
 
 import { ViewTransitions } from "next-view-transitions";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import ChatbotWidget from "@/components/layout/chatbot-widget";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -51,6 +52,10 @@ export default function RootLayout({
                         {/* <StarsCanvas /> */}
                         <Navbar />
                         {children}
+                        <ChatbotWidget
+                            title="Ask about Ali Seyedi"
+                            subtitle="Powered by OpenRouter"
+                        />
                     </ThemeProvider>
                 </body>
             </html>
