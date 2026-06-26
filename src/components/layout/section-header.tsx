@@ -40,13 +40,13 @@ export default function SectionHeader({
         `}
         >
             {/* Title */}
-            <h2 className="relative mb-3 inline-block font-mono text-cyan-700 dark:text-cyan-300 text-md tracking-widest">
+            <h2 className="relative mb-1 md:mb-3 inline-block font-mono text-cyan-700 dark:text-cyan-300 text-md tracking-widest">
                 {title}
             </h2>
 
             {/* Subtitle - with the "Let's build something together." vibe */}
             {subtitle && (
-                <div className="mt-4 text-left text-slate-900 dark:text-white sm:text-base reveal font-display text-3xl md:text-6xl font-bold tracking-tight">
+                <div className="mt-2 md:mt-4 text-left text-slate-900 dark:text-white sm:text-base reveal font-display text-3xl md:text-6xl font-bold tracking-tight">
                     {renderSubtitle()}
                 </div>
             )}

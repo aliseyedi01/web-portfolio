@@ -1,6 +1,6 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
-export const ProgrammerCoding = ({ className }) => {
+export const CodingLottie = ({ className }) => {
     return (
         <div className={`${className}`}>
             <DotLottieReact

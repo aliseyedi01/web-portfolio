@@ -3,7 +3,7 @@
 import Section from "@/components/layout/section";
 import SectionHeader from "@/components/layout/section-header";
 import { contactData } from "@/data/contact";
-
+import ContactUsLottie from "@/components/icon/ContactUsLottie";
 import { BlurFade } from "@/components/ui/blur-fade";
 
 import { ComponentType } from "react";
@@ -23,9 +23,9 @@ const ContactCard = ({ item }: { item: ContactItem }) => {
             href={item.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-4 glass-card"
+            className="flex items-center gap-4 glass-card "
         >
-            <div className="p-3 rounded-lg bg-blue-100/70 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
+            <div className="p-1 md:p-3 rounded-lg bg-blue-100/70 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
                 <Icon className="text-xl" />
             </div>
 
@@ -53,10 +53,17 @@ export default function Contact() {
                 highlightWord="together"
             />
             <BlurFade delay={0.005 * 1} inView>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 max-w-4xl ">
-                    {contactData.contact.map((item, i) => (
-                        <ContactCard key={i} item={item} />
-                    ))}
+                <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 mt-10 max-w-6xl mx-auto max-md:mb-6">
+                    <div className="w-full lg:w-1/3">
+                        <div className="grid grid-cols-1 sm:grid-cols-1 gap-2 md:gap-4">
+                            {contactData.contact.map((item, i) => (
+                                <ContactCard key={i} item={item} />
+                            ))}
+                        </div>
+                    </div>
+                    <div className="w-full lg:w-2/3 flex items-center justify-center">
+                        <ContactUsLottie className="size-full" />
+                    </div>
                 </div>
             </BlurFade>
         </Section>
