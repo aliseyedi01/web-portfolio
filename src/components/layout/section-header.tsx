@@ -46,7 +46,7 @@ export default function SectionHeader({
 
             {/* Subtitle - with the "Let's build something together." vibe */}
             {subtitle && (
-                <div className="mt-4 text-left text-slate-900 dark:text-white sm:text-base reveal font-display text-4xl md:text-6xl font-bold tracking-tight">
+                <div className="mt-4 text-left text-slate-900 dark:text-white sm:text-base reveal font-display text-3xl md:text-6xl font-bold tracking-tight">
                     {renderSubtitle()}
                 </div>
             )}

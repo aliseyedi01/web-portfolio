@@ -150,7 +150,7 @@ export default function Hero() {
 
             {/* Profile Image */}
             <BlurFade delay={0.005} inView>
-                <BackgroundGradient className="z-50 size-40 sm:size-48 md:size-52 lg:size-64 xl:size-96 shrink-0">
+                {/* <BackgroundGradient className="z-50 size-40 sm:size-48 md:size-52 lg:size-64 xl:size-96 shrink-0">
                     <div className="size-full rounded-full">
                         <Image
                             src={profilePicHover}
@@ -162,7 +162,20 @@ export default function Hero() {
                             priority
                         />
                     </div>
-                </BackgroundGradient>
+                </BackgroundGradient> */}
+                <div className="z-50 size-40 sm:size-48 md:size-52 lg:size-64 xl:size-96 shrink-0">
+                    <div className="size-full rounded-full">
+                        <Image
+                            src={profilePicHover}
+                            alt="Profile Picture Hover"
+                            className="size-full object-cover rounded-full transition-opacity duration-200"
+                            width={400}
+                            height={400}
+                            loading="eager"
+                            priority
+                        />
+                    </div>
+                </div>
             </BlurFade>
         </div>
     );
