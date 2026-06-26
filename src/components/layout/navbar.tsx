@@ -107,13 +107,14 @@ export const Navbar = () => {
                         duration: 0.2,
                     }}
                     className={cn(
-                        "flex max-w-6xl w-full justify-self-center backdrop-blur-3xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg bg-white/70 dark:bg-background/10 sm:bg-white/80 sm:dark:bg-background/20 z-50 pr-4 pl-6 py-4 items-center justify-between border border-blue-400/40 dark:border-blue-500/25 shadow-sm shadow-blue-500/5 dark:shadow-blue-500/10 transition-colors",
+                        // Hidden on mobile — <MobileNavbar /> handles small screens now.
+                        "hidden sm:flex max-w-6xl w-full justify-self-center backdrop-blur-3xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg bg-white/70 dark:bg-background/10 sm:bg-white/80 sm:dark:bg-background/20 z-50 pr-4 pl-6 py-2 items-center justify-between border border-blue-400/40 dark:border-blue-500/25 shadow-sm shadow-blue-500/5 dark:shadow-blue-500/10 transition-colors",
                     )}
                 >
                     <div className="flex items-center mr-4 sm:mr-16 text-foreground">
                         <AnimatedLogo
                             theme={resolvedTheme === "dark" ? "light" : "light"}
-                            className="w-6 h-6 sm:size-10"
+                            className="size-5 sm:size-9"
                             onClick={handleLogoClick}
                         />
                     </div>
