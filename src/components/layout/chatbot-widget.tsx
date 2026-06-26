@@ -38,6 +38,8 @@ export default function ChatbotWidget({
     const [isLoading, setIsLoading] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
     const [showHint, setShowHint] = useState(false);
+    const widgetRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
 
     const hintRef = useRef<HTMLDivElement | null>(null);
     const [hasTriggeredHint, setHasTriggeredHint] = useState(false);
@@ -46,6 +48,41 @@ export default function ChatbotWidget({
         volume: 0.5,
         onerror: () => console.log("Sound file not found"),
     });
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            const target = event.target as Node;
+
+            if (
+                (widgetRef.current && widgetRef.current.contains(target)) ||
+                (buttonRef.current && buttonRef.current.contains(target))
+            ) {
+                return;
+            }
+
+            if (isOpen) {
+                setIsOpen(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isOpen]);
+
+    useEffect(() => {
+        function handleEscape(event: KeyboardEvent) {
+            if (event.key === "Escape" && isOpen) {
+                setIsOpen(false);
+            }
+        }
+
+        document.addEventListener("keydown", handleEscape);
+        return () => {
+            document.removeEventListener("keydown", handleEscape);
+        };
+    }, [isOpen]);
 
     useEffect(() => {
         if (hasTriggeredHint) return;
@@ -114,9 +151,13 @@ export default function ChatbotWidget({
         }
     }
 
+    const toggleChat = () => {
+        setIsOpen((prev) => !prev);
+        setShowHint(false);
+    };
+
     return (
         <>
-            {/* Floating button */}
             <div className="fixed bottom-3 md:bottom-6 right-6 z-50">
                 {showHint && !isOpen && (
                     <motion.div
@@ -131,8 +172,7 @@ export default function ChatbotWidget({
                         }}
                         className="fixed bottom-22 right-6 z-50"
                     >
-                        <div className="relative  bg-white dark:bg-slate-950/95 border border-cyan-500/20 rounded-2xl rounded-br-sm px-4 py-3 shadow-xl shadow-primary/10 max-w-60">
-                            {/* Dismiss Button */}
+                        <div className="relative bg-white dark:bg-slate-950/95 border border-cyan-500/20 rounded-2xl rounded-br-sm px-4 py-3 shadow-xl shadow-primary/10 max-w-60">
                             <button
                                 onClick={() => {
                                     setShowHint(false);
@@ -143,7 +183,6 @@ export default function ChatbotWidget({
                                 <X className="size-3" />
                             </button>
 
-                            {/* Content */}
                             <div className="flex items-center gap-2 mb-1">
                                 <Sparkles className="w-3 h-3 text-primary shrink-0" />
                                 <span className="text-lg font-semibold text-foreground">
@@ -155,28 +194,27 @@ export default function ChatbotWidget({
                                 Ask about my projects, skills or experience →
                             </p>
 
-                            {/* Arrow pointing to button */}
-                            <div className="absolute -bottom-2 right-4 w-3 h-3 bg-background dark:bg-background border-r border-b border-cyan-500/20  rotate-45" />
+                            <div className="absolute -bottom-2 right-4 w-3 h-3 bg-background dark:bg-background border-r border-b border-cyan-500/20 rotate-45" />
                         </div>
                     </motion.div>
                 )}
 
                 <button
-                    onClick={() => {
-                        setIsOpen((v) => !v);
-                        setShowHint(false);
-                    }}
+                    ref={buttonRef}
+                    onClick={toggleChat}
                     aria-label={isOpen ? "Close chat" : "Open chat"}
-                    className="flex h-10 px-3 items-center gap-3 rounded-full bg-linear-to-r from-cyan-500 to-indigo-500  text-white shadow-lg shadow-cyan-500/30 transition hover:scale-105"
+                    className="flex h-10 px-3 items-center gap-3 rounded-full bg-linear-to-r from-cyan-500 to-indigo-500 text-white shadow-lg shadow-cyan-500/30 transition hover:scale-105"
                 >
                     <Bot size={20} />
                     <span className="font-medium text-sm">Ask AI About Me</span>
                 </button>
             </div>
-            {/* Chat panel */}
+
             {isOpen && (
-                <div className="fixed bottom-24 right-6 z-50 flex  h-130 w-90 max-w-[90vw] flex-col overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-950/95 shadow-2xl backdrop-blur-xl">
-                    {/* Header */}
+                <div
+                    ref={widgetRef}
+                    className="fixed bottom-24 right-6 z-50 flex h-130 w-90 max-w-[90vw] flex-col overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-950/95 shadow-2xl backdrop-blur-xl"
+                >
                     <div className="flex items-center justify-between border-b border-white/5 px-4 py-3">
                         <div className="flex items-center gap-3">
                             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/15 text-cyan-400">
@@ -200,7 +238,6 @@ export default function ChatbotWidget({
                         </button>
                     </div>
 
-                    {/* Messages / suggested questions */}
                     <div
                         ref={scrollRef}
                         className="flex-1 space-y-3 overflow-y-auto px-4 py-3"
@@ -255,7 +292,6 @@ export default function ChatbotWidget({
                         )}
                     </div>
 
-                    {/* Input */}
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
