@@ -117,11 +117,11 @@ export default function Hero() {
                                                 ref={ctaRef}
                                                 onMouseMove={handleCtaMove}
                                                 href="#projects"
-                                                className="group relative inline-flex items-center gap-1.5 sm:gap-2 overflow-hidden rounded-full border border-border bg-background/40 backdrop-blur-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs md:text-sm font-medium transition-colors hover:text-foreground text-foreground/80"
+                                                className="group relative inline-flex items-center gap-1.5 sm:gap-2 overflow-hidden rounded-full border border-border bg-background/40 backdrop-blur-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs md:text-sm font-medium s hover:text-foreground text-foreground/80"
                                             >
                                                 <span
                                                     aria-hidden
-                                                    className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                                                    className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity  group-hover:opacity-20"
                                                     style={{
                                                         background:
                                                             "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
