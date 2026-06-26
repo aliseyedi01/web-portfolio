@@ -7,7 +7,7 @@ Name: Ali Seyedi
 Title: Front-End Developer with Backend Knowledge
 
 About me:
-Front-End Developer with 3+ years of experience specializing in React and Next.js, with hands-on experience building financial dashboards and market analysis tools. Quick learner with a track record of adopting new technologies and applying them in production. Committed to writing clean, maintainable code with a creative approach to problem-solving, combined with backend knowledge for effective full-stack collaboration.
+Front-End Developer with 4+ years of experience specializing in React and Next.js, with hands-on experience building financial dashboards and market analysis tools. Quick learner with a track record of adopting new technologies and applying them in production. Committed to writing clean, maintainable code with a creative approach to problem-solving, combined with backend knowledge for effective full-stack collaboration.
 
 Core technical skills:
 - Frontend: JavaScript, TypeScript, React.js, Next.js, HTML5, CSS3, TailwindCSS, Shadcn UI, MUI, Ant Design, Bootstrap

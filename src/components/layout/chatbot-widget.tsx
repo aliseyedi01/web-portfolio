@@ -3,6 +3,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Bot, Loader2, Send, X } from "lucide-react";
+import useSound from "use-sound";
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type ChatMessage = {
     role: "user" | "assistant";
@@ -33,6 +37,34 @@ export default function ChatbotWidget({
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const [showHint, setShowHint] = useState(false);
+
+    const hintRef = useRef<HTMLDivElement | null>(null);
+    const [hasTriggeredHint, setHasTriggeredHint] = useState(false);
+
+    const [playDing] = useSound("/ding.mp3", {
+        volume: 0.5,
+        onerror: () => console.log("Sound file not found"),
+    });
+
+    useEffect(() => {
+        if (hasTriggeredHint) return;
+
+        const trigger = () => {
+            setHasTriggeredHint(true);
+            setShowHint(true);
+
+            playDing();
+        };
+
+        window.addEventListener("scroll", trigger, { once: true });
+        window.addEventListener("click", trigger, { once: true });
+
+        return () => {
+            window.removeEventListener("scroll", trigger);
+            window.removeEventListener("click", trigger);
+        };
+    }, [hasTriggeredHint, playDing]);
 
     useEffect(() => {
         scrollRef.current?.scrollTo({
@@ -85,13 +117,49 @@ export default function ChatbotWidget({
     return (
         <>
             {/* Floating button */}
-            <button
-                onClick={() => setIsOpen((v) => !v)}
-                aria-label={isOpen ? "Close chat" : "Open chat"}
-                className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-cyan-500 text-white shadow-lg shadow-cyan-500/30 transition-transform hover:scale-105 active:scale-95"
-            >
-                {isOpen ? <X size={22} /> : <Bot size={22} />}
-            </button>
+            <div className="fixed bottom-6 right-6 z-50">
+                {showHint && !isOpen && (
+                    <div
+                        ref={hintRef}
+                        className="absolute bottom-20 right-0 w-66 rounded-2xl border border-cyan-500/30 bg-slate-950/95 p-4 text-white shadow-2xl backdrop-blur-xl"
+                    >
+                        <button
+                            onClick={() => {
+                                setIsOpen((v) => !v);
+                                setShowHint(false);
+                            }}
+                            className="absolute right-2 top-2 text-slate-500 hover:text-white"
+                        >
+                            <X size={14} />
+                        </button>
+
+                        <div className="space-y-2">
+                            <p className="size-xs font-semibold">
+                                ✨ I know it all
+                            </p>
+
+                            <p className="text-sm text-slate-400">
+                                Ask about my projects, skills or experience →
+                            </p>
+                        </div>
+
+                        <div className="absolute -bottom-2 right-8 h-4 w-4 rotate-45 border-r border-b border-cyan-500/30 bg-slate-950" />
+                    </div>
+                )}
+
+                <button
+                    onClick={() => {
+                        setIsOpen((v) => !v);
+                        setShowHint(false);
+                    }}
+                    aria-label={isOpen ? "Close chat" : "Open chat"}
+                    className="flex h-12 items-center gap-3 rounded-full bg-linear-to-r from-cyan-500 to-indigo-500 px-6 text-white shadow-lg shadow-cyan-500/30 transition hover:scale-105"
+                >
+                    <Bot size={20} />
+
+                    <span className="font-medium ">Ask AI About Me</span>
+                </button>
+            </div>
 
             {/* Chat panel */}
             {isOpen && (
@@ -145,13 +213,25 @@ export default function ChatbotWidget({
                         {messages.map((m, i) => (
                             <div
                                 key={i}
+                                dir={
+                                    m.role === "assistant" &&
+                                    /[\u0600-\u06FF]/.test(m.content)
+                                        ? "rtl"
+                                        : "ltr"
+                                }
                                 className={`max-w-[85%] whitespace-pre-wrap rounded-xl px-3 py-2 text-sm leading-relaxed ${
                                     m.role === "user"
                                         ? "ml-auto bg-cyan-500/15 text-cyan-50"
                                         : "mr-auto bg-white/5 text-slate-200"
                                 }`}
                             >
-                                {m.content}
+                                {m.role === "assistant" ? (
+                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                        {m.content}
+                                    </ReactMarkdown>
+                                ) : (
+                                    m.content
+                                )}
                             </div>
                         ))}
 
