@@ -29,7 +29,7 @@ or any other image hosting link). Replace PASTE_..._LINK_HERE with the real URL.
 ![Desktop screenshot 1](https://github.com/user-attachments/assets/51090adc-ff4d-4cea-846b-7ebfdeaf6c48)
 ![Desktop screenshot 3](https://github.com/user-attachments/assets/238b5ec2-8790-40bb-a57f-aaf5507ff366)
 ![Desktop screenshot 2](https://github.com/user-attachments/assets/b21dfd40-745d-4bdc-ad67-7463229c68db)
-![Desktop screenshot 3](https://github.com/user-attachments/assets/4a7c37f6-2582-4ba6-a0d1-89861983ae4f)
+![Desktop screenshot 3](https://github.com/user-attachments/assets/a3274708-8a8c-4e15-9e6e-c3dc8b750c60)
 
 ### 📱 Mobile
 
