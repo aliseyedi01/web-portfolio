@@ -19,17 +19,60 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Ali Seyedi",
-    description: "Personal portfolio and projects",
-    keywords: ["developer", "programmer", "portfolio"],
-    authors: [{ name: "Ali Seyedi" }],
+    metadataBase: new URL("https://aliseyedi01.ir"),
+    title: {
+        default: "Ali Seyedi | Full-Stack Developer",
+        template: "%s | Ali Seyedi",
+    },
+    description:
+        "Personal portfolio of Ali Seyedi, a Full-Stack Developer specializing in Next.js, React, and TypeScript. Explore my projects, skills, and experience.",
+    keywords: [
+        "Ali Seyedi",
+        "Full Stack Developer",
+        "Next.js Developer",
+        "React Developer",
+        "TypeScript Developer",
+        "Frontend Developer",
+        "Web Developer Portfolio",
+        "Software Engineer",
+    ],
+    authors: [{ name: "Ali Seyedi", url: "https://aliseyedi01.ir" }],
+    creator: "Ali Seyedi",
+    publisher: "Ali Seyedi",
+    robots: {
+        index: true,
+        follow: true,
+    },
+    alternates: {
+        canonical: "https://aliseyedi01.ir",
+    },
     openGraph: {
-        title: "Ali Seyedi",
-        description: "Personal portfolio and projects",
+        title: "Ali Seyedi | Full-Stack Developer",
+        description:
+            "Personal portfolio of Ali Seyedi, a Full-Stack Developer specializing in Next.js, React, and TypeScript.",
+        url: "https://aliseyedi01.ir",
+        siteName: "Ali Seyedi",
         type: "website",
+        locale: "en_US",
+        images: [
+            {
+                url: "/og-image.png",
+                width: 1200,
+                height: 630,
+                alt: "Ali Seyedi - Full-Stack Developer Portfolio",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Ali Seyedi | Full-Stack Developer",
+        description:
+            "Personal portfolio of Ali Seyedi, a Full-Stack Developer specializing in Next.js, React, and TypeScript.",
+        images: ["/og-image.png"],
     },
     manifest: "/site.webmanifest",
 };
+
 export default function RootLayout({
     children,
 }: Readonly<{
