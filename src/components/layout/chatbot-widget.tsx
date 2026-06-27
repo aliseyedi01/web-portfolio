@@ -172,29 +172,29 @@ export default function ChatbotWidget({
                         }}
                         className="fixed bottom-22 right-6 z-50"
                     >
-                        <div className="relative bg-white dark:bg-slate-950/95 border border-cyan-500/20 rounded-2xl rounded-br-sm px-4 py-3 shadow-xl shadow-primary/10 max-w-60">
+                        <div className="relative bg-white dark:bg-slate-900 border border-cyan-500/30 dark:border-cyan-500/20 rounded-2xl rounded-br-sm px-4 py-3 shadow-xl shadow-cyan-500/10 dark:shadow-primary/10 max-w-60">
                             <button
                                 onClick={() => {
                                     setShowHint(false);
                                 }}
-                                className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-muted border border-border text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors"
+                                className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-gray-200 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-white flex items-center justify-center transition-colors"
                                 aria-label="Dismiss"
                             >
                                 <X className="size-3" />
                             </button>
 
                             <div className="flex items-center gap-2 mb-1">
-                                <Sparkles className="w-3 h-3 text-primary shrink-0" />
-                                <span className="text-lg font-semibold text-foreground">
+                                <Sparkles className="w-3 h-3 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                                <span className="text-lg font-semibold text-gray-800 dark:text-white">
                                     I know it all
                                 </span>
                             </div>
 
-                            <p className="text-md text-muted-foreground leading-snug">
+                            <p className="text-md text-gray-600 dark:text-gray-300 leading-snug">
                                 Ask about my projects, skills or experience →
                             </p>
 
-                            <div className="absolute -bottom-2 right-4 w-3 h-3 bg-background dark:bg-background border-r border-b border-cyan-500/20 rotate-45" />
+                            <div className="absolute -bottom-2 right-4 w-3 h-3 bg-white dark:bg-slate-900 border-r border-b border-cyan-500/30 dark:border-cyan-500/20 rotate-45" />
                         </div>
                     </motion.div>
                 )}
@@ -203,7 +203,7 @@ export default function ChatbotWidget({
                     ref={buttonRef}
                     onClick={toggleChat}
                     aria-label={isOpen ? "Close chat" : "Open chat"}
-                    className="flex h-10 px-3 items-center gap-3 rounded-full bg-linear-to-r from-cyan-500 to-indigo-500 text-white shadow-lg shadow-cyan-500/30 transition hover:scale-105"
+                    className="flex h-10 px-3 items-center gap-3 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 text-white shadow-lg shadow-cyan-500/40 transition hover:scale-105 hover:shadow-cyan-500/50"
                 >
                     <Bot size={20} />
                     <span className="font-medium text-sm">Ask AI About Me</span>
@@ -213,45 +213,47 @@ export default function ChatbotWidget({
             {isOpen && (
                 <div
                     ref={widgetRef}
-                    className="fixed bottom-24 right-6 z-50 flex h-130 w-90 max-w-[90vw] flex-col overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-950/95 shadow-2xl backdrop-blur-xl"
+                    className="fixed bottom-24 right-6 z-50 flex h-130 w-90 max-w-[90vw] flex-col overflow-hidden rounded-2xl border border-cyan-500/30 dark:border-cyan-500/20 bg-white dark:bg-slate-950 shadow-2xl shadow-cyan-500/10 dark:shadow-cyan-500/5"
                 >
-                    <div className="flex items-center justify-between border-b border-white/5 px-4 py-3">
+                    {/* Header */}
+                    <div className="flex items-center justify-between border-b border-gray-200/80 dark:border-white/5 px-4 py-3 bg-gray-50/80 dark:bg-slate-950/95">
                         <div className="flex items-center gap-3">
-                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/15 text-cyan-400">
+                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/20 dark:bg-cyan-500/15 text-cyan-600 dark:text-cyan-400">
                                 <Bot size={18} />
                             </div>
                             <div>
-                                <p className="text-sm font-semibold text-white">
+                                <p className="text-sm font-semibold text-gray-800 dark:text-white">
                                     {title}
                                 </p>
-                                <p className="text-xs text-slate-400">
+                                <p className="text-xs text-gray-500 dark:text-slate-400">
                                     {subtitle}
                                 </p>
                             </div>
                         </div>
                         <button
                             onClick={() => setIsOpen(false)}
-                            className="text-slate-400 transition hover:text-white"
+                            className="text-gray-400 dark:text-slate-400 transition hover:text-gray-700 dark:hover:text-white"
                             aria-label="Close"
                         >
                             <X size={18} />
                         </button>
                     </div>
 
+                    {/* Messages */}
                     <div
                         ref={scrollRef}
-                        className="flex-1 space-y-3 overflow-y-auto px-4 py-3"
+                        className="flex-1 space-y-3 overflow-y-auto px-4 py-3 bg-gray-50/50 dark:bg-slate-950/80"
                     >
                         {messages.length === 0 && (
                             <div className="space-y-2">
-                                <p className="text-[11px] text-slate-500">
+                                <p className="text-[11px] text-gray-400 dark:text-slate-500">
                                     // suggested questions
                                 </p>
                                 {suggestions.map((q) => (
                                     <button
                                         key={q}
                                         onClick={() => sendMessage(q)}
-                                        className="block w-full rounded-lg border border-white/5 bg-white/3 px-3 py-2 text-left text-sm text-slate-200 transition hover:border-cyan-500/30 hover:bg-white/6"
+                                        className="block w-full rounded-lg border border-gray-200/80 dark:border-white/5 bg-white dark:bg-white/3 px-3 py-2 text-left text-sm text-gray-700 dark:text-slate-200 transition hover:border-cyan-400/50 dark:hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:hover:bg-white/6"
                                     >
                                         {q}
                                     </button>
@@ -270,12 +272,48 @@ export default function ChatbotWidget({
                                 }
                                 className={`max-w-[85%] whitespace-pre-wrap rounded-xl px-3 py-2 text-sm leading-relaxed ${
                                     m.role === "user"
-                                        ? "ml-auto bg-cyan-500/15 text-cyan-50"
-                                        : "mr-auto bg-white/5 text-slate-200"
+                                        ? "ml-auto bg-cyan-600/20 dark:bg-cyan-500/15 text-gray-800 dark:text-cyan-50"
+                                        : "mr-auto bg-gray-200/80 dark:bg-white/5 text-gray-800 dark:text-slate-200"
                                 }`}
                             >
                                 {m.role === "assistant" ? (
-                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                    <ReactMarkdown
+                                        remarkPlugins={[remarkGfm]}
+                                        components={{
+                                            a: ({ node, ...props }) => (
+                                                <a
+                                                    {...props}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-cyan-600 dark:text-cyan-400 underline hover:text-cyan-800 dark:hover:text-cyan-300"
+                                                />
+                                            ),
+                                            code: ({ node, ...props }) => (
+                                                <code
+                                                    {...props}
+                                                    className="bg-gray-300/50 dark:bg-white/10 rounded px-1 py-0.5 text-gray-800 dark:text-gray-200"
+                                                />
+                                            ),
+                                            p: ({ node, ...props }) => (
+                                                <p
+                                                    {...props}
+                                                    className="mb-1 last:mb-0"
+                                                />
+                                            ),
+                                            ul: ({ node, ...props }) => (
+                                                <ul
+                                                    {...props}
+                                                    className="list-disc pl-4 space-y-0.5"
+                                                />
+                                            ),
+                                            ol: ({ node, ...props }) => (
+                                                <ol
+                                                    {...props}
+                                                    className="list-decimal pl-4 space-y-0.5"
+                                                />
+                                            ),
+                                        }}
+                                    >
                                         {m.content}
                                     </ReactMarkdown>
                                 ) : (
@@ -285,30 +323,31 @@ export default function ChatbotWidget({
                         ))}
 
                         {isLoading && (
-                            <div className="mr-auto flex w-fit items-center gap-2 rounded-xl bg-white/5 px-3 py-2 text-sm text-slate-400">
+                            <div className="mr-auto flex w-fit items-center gap-2 rounded-xl bg-gray-200/80 dark:bg-white/5 px-3 py-2 text-sm text-gray-500 dark:text-slate-400">
                                 <Loader2 size={14} className="animate-spin" />
                                 Thinking...
                             </div>
                         )}
                     </div>
 
+                    {/* Input */}
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
                             sendMessage(input);
                         }}
-                        className="flex items-center gap-2 border-t border-white/5 p-3"
+                        className="flex items-center gap-2 border-t border-gray-200/80 dark:border-white/5 p-3 bg-white dark:bg-slate-950/95"
                     >
                         <input
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder={placeholder}
-                            className="flex-1 rounded-lg border border-white/10 bg-white/3 px-3 py-2 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-500/50"
+                            className="flex-1 rounded-lg border border-gray-300 dark:border-white/10 bg-gray-100/80 dark:bg-white/3 px-3 py-2 text-sm text-gray-800 dark:text-white outline-none placeholder:text-gray-400 dark:placeholder:text-slate-500 focus:border-cyan-400 dark:focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-400/30 dark:focus:ring-cyan-500/20"
                         />
                         <button
                             type="submit"
                             disabled={isLoading || !input.trim()}
-                            className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500 text-white transition disabled:opacity-40"
+                            className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white transition disabled:opacity-40 disabled:hover:bg-cyan-600 dark:disabled:hover:bg-cyan-500 shadow-lg shadow-cyan-500/30 dark:shadow-cyan-500/20"
                             aria-label="Send"
                         >
                             <Send size={16} />
