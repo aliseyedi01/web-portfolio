@@ -78,8 +78,8 @@ or any other image hosting link). Replace PASTE_..._LINK_HERE with the real URL.
 ### Installation
 
 ```bash
-git clone https://github.com/aliseyedi01/Next.js-Portfolio.git
-cd Next.js-Portfolio
+git clone https://github.com/aliseyedi01/web-portfolio.git
+cd web-portfolio
 npm install
 ```
 
