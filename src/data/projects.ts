@@ -2,6 +2,16 @@ import { Project } from "@/types/project";
 
 export const projects: Project[] = [
     {
+        id: "web-portfolio",
+        title: "Web-Portfolio",
+        description: "Built a fast, animated personal portfolio using Next.js 16, Featuring an AI chatbot visitors.",
+        image: "/projects/web-portfolio.png",
+        category: "Frontend",
+        techStack: ["Next.js", "Motion", "Shadcnui", "Next-themes", "Chat-Bot"],
+        codeUrl: "https://github.com/aliseyedi01/web-portfolio",
+        liveUrl: "https://aliseyedi01.ir/",
+    },
+    {
         id: "AdminPanel",
         title: "Admin-Panel",
         description: "Built a full admin panel with React, TypeScript, Ant Design, and Supabase – with CRUD for users, products, and blogs",

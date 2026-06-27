@@ -20,14 +20,14 @@ export default function ProjectCard({ project }: { project: Project }) {
     const hiddenCount = techStack.length - visibleTech.length;
 
     return (
-        <div className="group flex h-[440px] flex-col overflow-hidden rounded-2xl glass-card p-0">
+        <div className="group flex h-110 flex-col overflow-hidden rounded-2xl glass-card p-0">
             {/* Preview */}
             <div className="relative h-48 w-full shrink-0 overflow-hidden">
                 <Image
                     src={image}
                     alt={title}
                     fill
-                    className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                    className="object-cover  transition-transform duration-300 group-hover:scale-105"
                 />
                 <span
                     className={`absolute top-3 right-3 rounded-full px-3 py-1 text-xs font-semibold text-white shadow-lg ${categoryStyles[category]}`}
@@ -42,16 +42,16 @@ export default function ProjectCard({ project }: { project: Project }) {
                     <h3 className="line-clamp-1 text-lg font-semibold text-slate-900 dark:text-white">
                         {title}
                     </h3>
-                    <p className="line-clamp-2 min-h-[2.5rem] text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
+                    <p className="line-clamp-2 min-h-10 text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
                         {description}
                     </p>
                 </div>
 
-                <div className="flex h-[30px] flex-wrap gap-2 overflow-hidden">
+                <div className="h-15 flex flex-wrap items-start gap-1 overflow-hidden">
                     {visibleTech.map((tech) => (
                         <span
                             key={tech}
-                            className="rounded-full border border-purple-400/30 bg-purple-100/60 px-3 py-1 text-xs font-medium text-purple-700 dark:border-purple-500/20 dark:bg-purple-500/10 dark:text-purple-300"
+                            className="rounded-full border border-purple-400/30 bg-purple-100/60 px-3 py-1 text-xs font-medium text-purple-700 h-7 flex items-center dark:border-purple-500/20 dark:bg-purple-500/10 dark:text-purple-300"
                         >
                             {tech}
                         </span>
@@ -75,7 +75,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                     <Link
                         href={liveUrl}
                         target="_blank"
-                        className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-pink-500 to-purple-600 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                        className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-linear-to-r from-pink-500 to-purple-600 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
                     >
                         <SquareArrowOutUpRight className="h-4 w-4" />
                         Live Demo

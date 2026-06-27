@@ -382,7 +382,7 @@ html.dark code[data-theme] span {
   .glass-card {
     @apply  rounded-xl
     bg-white dark:bg-white/5 backdrop-blur-sm
-    border border-blue-300/15
+    border border-blue-600/30 dark:border-blue-300/15
     p-4 sm:p-5
     shadow-sm shadow-blue-400/20
     transform
