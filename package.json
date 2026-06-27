@@ -8,6 +8,7 @@
         "openbuild": "opennextjs-cloudflare build",
         "deploy": "wrangler deploy .open-next/worker.js",
         "preview": "opennextjs-cloudflare preview",
+        "deploy_cloudflare_full": "npm run build && npm run openbuild && npm run deploy",
         "start": "next start",
         "lint": "next lint"
     },
