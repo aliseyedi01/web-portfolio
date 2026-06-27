@@ -1,7 +1,7 @@
 // src/hooks/useGitHubStars.ts
 import { useEffect, useState } from 'react';
 
-const GITHUB_REPO = 'aliseyedi01/Next.js-Portfolio';
+const GITHUB_REPO = 'aliseyedi01/web-portfolio';
 
 export interface GitHubStarsData {
     stars: number;
