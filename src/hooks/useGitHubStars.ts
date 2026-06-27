@@ -1,4 +1,7 @@
+// src/hooks/useGitHubStars.ts
 import { useEffect, useState } from 'react';
+
+const GITHUB_REPO = 'aliseyedi01/Next.js-Portfolio';
 
 export interface GitHubStarsData {
     stars: number;
@@ -21,7 +24,14 @@ export function useGitHubStars(): UseGitHubStarsReturn {
     useEffect(() => {
         async function fetchStars() {
             try {
-                const response = await fetch('/api/github-stars');
+                const response = await fetch(
+                    `https://api.github.com/repos/${GITHUB_REPO}`,
+                    {
+                        headers: {
+                            Accept: 'application/vnd.github+json',
+                        },
+                    }
+                );
 
                 if (!response.ok) {
                     throw new Error('Failed to fetch GitHub stars');
@@ -29,16 +39,16 @@ export function useGitHubStars(): UseGitHubStarsReturn {
 
                 const result = await response.json();
 
-                if (result && !result.error) {
-                    setData(result);
-                    setError(null);
-                } else {
-                    setError(result.error || 'Unknown error');
-                }
+                setData({
+                    stars: result.stargazers_count,
+                    forks: result.forks_count,
+                    url: result.html_url,
+                    repo: GITHUB_REPO,
+                });
+                setError(null);
             } catch (err) {
                 console.error('Error fetching GitHub stars:', err);
                 setError(err instanceof Error ? err.message : 'Failed to fetch GitHub stars');
-                // Keep previous data on error for graceful degradation
             } finally {
                 setIsLoading(false);
             }

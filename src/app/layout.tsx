@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { StarsCanvas } from "@/components/layout/star-background";
 import { Navbar } from "@/components/layout/navbar";
 
 import { ViewTransitions } from "next-view-transitions";
@@ -50,7 +49,6 @@ export default function RootLayout({
                         enableSystem={false}
                         storageKey="theme-preference"
                     >
-                        {/* <StarsCanvas /> */}
                         <Navbar />
                         <MobileNavbar />
                         {children}
