@@ -162,6 +162,7 @@ body {
 /* ===== CSS VARIABLES ===== */
 :root {
   --radius: 0.625rem;
+  --nav-height: 6rem;
   --background: oklch(0.98 0.01 264.542);
   --background-animate : oklch(97.727% 0.00549 2.178);
   --star-color:oklch(72.4% 0.198 119.8);
@@ -200,6 +201,7 @@ body {
   --color-3: oklch(72% 0.24 280);
   --color-4: oklch(88% 0.14 215);
   --color-5: oklch(83% 0.15 210);
+  
 }
 
 .dark {
@@ -282,6 +284,7 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
 }
 
 /* ===== VIEW TRANSITIONS ===== */

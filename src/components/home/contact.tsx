@@ -45,7 +45,7 @@ export default function Contact() {
     return (
         <Section
             id="contact"
-            className="h-full md:min-h-screen w-full scroll-mt-28"
+            className="h-full md:min-h-screen w-full  md:scroll-mt-28"
         >
             <SectionHeader
                 title="04 - CONTACT"

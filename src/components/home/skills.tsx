@@ -60,7 +60,7 @@ export default function Skills() {
     return (
         <Section
             id="skills"
-            className="h-full md:min-h-screen w-full scroll-mt-28"
+            className="h-full md:min-h-screen w-full scroll-mt-17 md:scroll-mt-28"
         >
             <SectionHeader
                 title="02 — SKILLS"

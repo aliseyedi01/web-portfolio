@@ -21,7 +21,7 @@ export default function Projects() {
     return (
         <Section
             id="projects"
-            className="h-full md:min-h-screen w-full scroll-mt-28"
+            className="h-full md:min-h-screen w-full  md:scroll-mt-28 md:mb-20"
         >
             <SectionHeader
                 title="03 - FEATURED PROJECTS"

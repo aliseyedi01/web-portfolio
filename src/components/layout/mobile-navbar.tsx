@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLenis } from "lenis/react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { ModeToggle } from "@/components/ui/theme-toggle";
@@ -15,12 +16,26 @@ import { navItems } from "@/data/navItems";
 // This matches the `fileName` prop already passed to <ResumeButton /> on desktop.
 const RESUME_FILE = "aliseyedi01-resume.pdf";
 
+// Tailwind's `sm` breakpoint (640px) — must match the `sm:hidden` class below,
+// since this component only "owns" --nav-height while it's the visible navbar.
+const MOBILE_BREAKPOINT = 640;
+
 export const MobileNavbar = () => {
     const [open, setOpen] = useState(false);
     const [resumeModalOpen, setResumeModalOpen] = useState(false);
     const { resolvedTheme } = useTheme();
     const router = useTransitionRouter();
     const cardRef = useRef<HTMLDivElement>(null);
+
+    // Separate ref for ONLY the always-visible top bar (logo + buttons row).
+    // We measure height from this, not the whole card, because the card's
+    // height changes when the panel opens/closes — measuring the whole card
+    // would give a wrong (mid-animation) value at the exact moment we scroll.
+    const topBarRef = useRef<HTMLDivElement>(null);
+
+    // Lenis instance from the root <ReactLenis> provider (see SmoothScrollProvider).
+    // Will be null until the provider mounts, so every call below is optional-chained.
+    const lenis = useLenis();
 
     const resumePath = `/${RESUME_FILE}`;
 
@@ -48,20 +63,33 @@ export const MobileNavbar = () => {
     };
 
     const handleNavClick = (link: string) => {
+        // Close the panel — doesn't affect --nav-height anymore since that's
+        // measured from the stable top bar, not the whole expandable card.
         setOpen(false);
 
+        // External route (e.g. "/blog") — just navigate, no scrolling involved
         if (link.startsWith("/")) {
             router.push(link);
             return;
         }
 
+        // We're on a different page — navigate home with the hash,
+        // the hash-scroll hook on the home page will handle scrolling there
         if (window.location.pathname !== "/") {
             router.push(`/#${link}`);
             return;
         }
 
-        const section = document.getElementById(link);
-        section?.scrollIntoView({ behavior: "smooth" });
+        // Read the current navbar height so the section isn't hidden underneath it
+        lenis?.scrollTo(`#${link}`, {
+            offset: -70,
+            duration: 1.2,
+        });
+
+        // Update the URL hash without triggering a native jump-scroll
+        if (window.history && window.history.pushState) {
+            window.history.pushState(null, "", `#${link}`);
+        }
     };
 
     return (
@@ -78,8 +106,11 @@ export const MobileNavbar = () => {
                         "shadow-sm shadow-blue-500/5 dark:shadow-blue-500/10",
                     )}
                 >
-                    {/* Top bar — always visible */}
-                    <div className="flex items-center justify-between px-3 py-2.5">
+                    {/* Top bar — always visible, height never changes (used for --nav-height) */}
+                    <div
+                        ref={topBarRef}
+                        className="flex items-center justify-between px-3 py-2.5"
+                    >
                         <AnimatedLogo
                             theme={resolvedTheme === "dark" ? "light" : "light"}
                             className="size-9"

@@ -7,6 +7,7 @@ import { ViewTransitions } from "next-view-transitions";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import ChatbotWidget from "@/components/layout/chatbot-widget";
 import { MobileNavbar } from "@/components/layout/mobile-navbar";
+import { SmoothScrollProvider } from "@/components/layout/smooth-scroll-provider";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -92,13 +93,16 @@ export default function RootLayout({
                         enableSystem={false}
                         storageKey="theme-preference"
                     >
-                        <Navbar />
-                        <MobileNavbar />
-                        {children}
-                        <ChatbotWidget
-                            title="Ask about Ali Seyedi"
-                            subtitle="Powered by OpenRouter"
-                        />
+                        <SmoothScrollProvider>
+                            {" "}
+                            <Navbar />
+                            <MobileNavbar />
+                            {children}
+                            <ChatbotWidget
+                                title="Ask about Ali Seyedi"
+                                subtitle="Powered by OpenRouter"
+                            />
+                        </SmoothScrollProvider>
                     </ThemeProvider>
                 </body>
             </html>

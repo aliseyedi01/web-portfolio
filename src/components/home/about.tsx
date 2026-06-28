@@ -143,7 +143,7 @@ export default function About() {
     return (
         <Section
             id="about"
-            className="h-full md:min-h-screen max-md:px-4 md:py-20 scroll-mt-28"
+            className="h-full md:min-h-screen max-md:px-4 md:py-20 md:scroll-mt-28"
         >
             <SectionHeader
                 title="01 — ABOUT"

@@ -22,7 +22,7 @@ export default function ProjectFilter({
 
     return (
         <div ref={containerRef} className="flex justify-center">
-            <div className="inline-flex mx-auto flex-wrap justify-center gap-1 rounded-full border border-slate-300/60 bg-slate-200/70 p-1.5 dark:border-white/10 dark:bg-sky-900/30">
+            <div className="inline-flex mx-auto flex-wrap justify-center gap-1 rounded-full border border-slate-300/60 bg-slate-200/70 py-1.5 px-1 dark:border-white/10 dark:bg-sky-900/30">
                 {filters.map((filter) => {
                     const isActive = active === filter;
 

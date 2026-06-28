@@ -117,7 +117,7 @@ export default function Experience() {
     return (
         <Section
             id="experience"
-            className="h-full md:min-h-screen w-full scroll-mt-28"
+            className="h-full md:min-h-screen w-full  md:scroll-mt-28 md:mb-8"
         >
             <SectionHeader
                 title="03 — EXPERIENCE"

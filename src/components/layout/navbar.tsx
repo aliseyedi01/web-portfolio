@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     motion,
     AnimatePresence,
@@ -17,6 +17,7 @@ import { useGitHubStars } from "@/hooks/useGitHubStars";
 import { navItems } from "@/data/navItems";
 import { ResumeButton } from "../ui/resume-button";
 import { useActiveSection } from "@/hooks/userActiveSection";
+import { useLenis } from "lenis/react";
 
 const FALLBACK_REPO_URL = "https://github.com/aliseyedi01/Next.js-Portfolio";
 
@@ -42,6 +43,8 @@ export const Navbar = () => {
     const [visible, setVisible] = useState(true);
     const [disableHide, setDisableHide] = useState(false);
     const [activeLink, setActiveLink] = useState<string>("");
+    const lenis = useLenis();
+    const navRef = useRef<HTMLDivElement>(null);
 
     const router = useTransitionRouter();
 
@@ -55,34 +58,31 @@ export const Navbar = () => {
         }
     }, [activeSection]);
 
-    useMotionValueEvent(scrollY, "change", (current) => {
-        if (disableHide) {
-            setVisible(true);
-            return;
-        }
+    // useMotionValueEvent(scrollY, "change", (current) => {
+    //     if (disableHide) {
+    //         setVisible(true);
+    //         return;
+    //     }
 
-        if (typeof current === "number") {
-            const previous = scrollY.getPrevious();
-            const direction = previous !== undefined ? current - previous : 0;
+    //     if (typeof current === "number") {
+    //         const previous = scrollY.getPrevious();
+    //         const direction = previous !== undefined ? current - previous : 0;
 
-            if (current < 50) {
-                setVisible(true);
-            } else {
-                setVisible(direction < 0);
-            }
-        }
-    });
+    //         if (current < 50) {
+    //             setVisible(true);
+    //         } else {
+    //             setVisible(direction < 0);
+    //         }
+    //     }
+    // });
 
     const handleNavClick = (link: string) => {
         setActiveLink(link);
-
         setDisableHide(true);
         setVisible(true);
 
         const unlock = () => {
-            setTimeout(() => {
-                setDisableHide(false);
-            }, 700);
+            setTimeout(() => setDisableHide(false), 700);
         };
 
         if (link.startsWith("/")) {
@@ -97,12 +97,21 @@ export const Navbar = () => {
             return;
         }
 
-        const section = document.getElementById(link);
+        // ← این بخش عوض می‌شه
+        const navHeight =
+            parseFloat(
+                getComputedStyle(document.documentElement).getPropertyValue(
+                    "--nav-height",
+                ),
+            ) || 96;
 
-        if (section) {
-            section.scrollIntoView({
-                behavior: "smooth",
-            });
+        lenis?.scrollTo(`#${link}`, {
+            offset: -navHeight,
+            duration: 1.2,
+        });
+
+        if (window.history?.pushState) {
+            window.history.pushState(null, "", `#${link}`);
         }
 
         unlock();
@@ -111,6 +120,28 @@ export const Navbar = () => {
     const handleLogoClick = () => {
         router.push("/");
     };
+
+    useEffect(() => {
+        const updateNavHeight = () => {
+            const height = navRef.current?.offsetHeight ?? 0;
+            const extraGap = 24; // فاصله اضافه برای نفس کشیدن محتوا
+            document.documentElement.style.setProperty(
+                "--nav-height",
+                `${height + extraGap}px`,
+            );
+        };
+
+        updateNavHeight();
+
+        const observer = new ResizeObserver(updateNavHeight);
+        if (navRef.current) observer.observe(navRef.current);
+        window.addEventListener("resize", updateNavHeight);
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener("resize", updateNavHeight);
+        };
+    }, []);
 
     return (
         <AnimatePresence mode="wait">
