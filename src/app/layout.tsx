@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import ChatbotWidget from "@/components/layout/chatbot-widget";
 import { MobileNavbar } from "@/components/layout/mobile-navbar";
 import { SmoothScrollProvider } from "@/components/layout/smooth-scroll-provider";
+import { BackgroundOrbs } from "@/components/layout/background-orbs";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -95,6 +96,7 @@ export default function RootLayout({
                     >
                         <SmoothScrollProvider>
                             {" "}
+                            <BackgroundOrbs />
                             <Navbar />
                             <MobileNavbar />
                             {children}
