@@ -1,7 +1,10 @@
 "use client";
 
 import { ReactLenis } from "lenis/react";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
+
+// باید با breakpoint `sm` تیلویند (640px) که MobileNavbar هم استفاده می‌کنه یکی باشه
+const MOBILE_BREAKPOINT = 640;
 
 export function SmoothScrollProvider({
     children,
@@ -10,9 +13,11 @@ export function SmoothScrollProvider({
 }) {
     const [isMobile, setIsMobile] = useState(false);
 
-    useEffect(() => {
+    // useLayoutEffect به جای useEffect تا قبل از پینت اول مقدار درست ست شه
+    // و فلیکر (یک فریم Lenis فعال بشه بعد خاموش بشه) رو نداشته باشیم
+    useLayoutEffect(() => {
         const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
+            setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
         };
 
         checkMobile();
@@ -21,20 +26,20 @@ export function SmoothScrollProvider({
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
+    // روی موبایل اصلاً Lenis رندر نمی‌شه => اسکرول کاملاً native مرورگر
+    if (isMobile) {
+        return <>{children}</>;
+    }
+
     return (
         <ReactLenis
             root
             options={{
-                // تنظیمات پایه - متعادل برای هر دو حالت
-                lerp: isMobile ? 0.08 : 0.05, // کمتر = نرم‌تر و کندتر
-                duration: isMobile ? 0.6 : 0.8, // مدت زمان اسکرول
-
-                // تنظیمات حساسیت
-                wheelMultiplier: isMobile ? 0.6 : 1.2, // حساسیت چرخ ماوس
-                touchMultiplier: isMobile ? 1.5 : 2.0, // حساسیت لمس موبایل
-
-                // غیرفعال کردن اسکرول نرم در موبایل برای عملکرد بهتر
-                smoothWheel: !isMobile,
+                lerp: 0.05,
+                duration: 0.8,
+                wheelMultiplier: 1.2,
+                touchMultiplier: 2.0,
+                smoothWheel: true,
             }}
         >
             {children}

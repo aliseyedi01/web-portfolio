@@ -27,19 +27,15 @@ export const MobileNavbar = () => {
     const router = useTransitionRouter();
     const cardRef = useRef<HTMLDivElement>(null);
 
-    // Separate ref for ONLY the always-visible top bar (logo + buttons row).
-    // We measure height from this, not the whole card, because the card's
-    // height changes when the panel opens/closes — measuring the whole card
-    // would give a wrong (mid-animation) value at the exact moment we scroll.
     const topBarRef = useRef<HTMLDivElement>(null);
 
-    // Lenis instance from the root <ReactLenis> provider (see SmoothScrollProvider).
-    // Will be null until the provider mounts, so every call below is optional-chained.
+    // روی موبایل، SmoothScrollProvider اصلاً <ReactLenis> رو رندر نمی‌کنه،
+    // پس این هوک روی موبایل همیشه null برمی‌گردونه. هر استفاده‌ای از lenis
+    // باید یک فالبک native scroll هم داشته باشه (پایین‌تر در handleNavClick).
     const lenis = useLenis();
 
     const resumePath = `/${RESUME_FILE}`;
 
-    // Close the panel when tapping/clicking outside the card
     useEffect(() => {
         if (!open) return;
 
@@ -63,8 +59,6 @@ export const MobileNavbar = () => {
     };
 
     const handleNavClick = (link: string) => {
-        // Close the panel — doesn't affect --nav-height anymore since that's
-        // measured from the stable top bar, not the whole expandable card.
         setOpen(false);
 
         // External route (e.g. "/blog") — just navigate, no scrolling involved
@@ -80,11 +74,21 @@ export const MobileNavbar = () => {
             return;
         }
 
-        // Read the current navbar height so the section isn't hidden underneath it
-        lenis?.scrollTo(`#${link}`, {
-            offset: -70,
-            duration: 1.2,
-        });
+        if (lenis) {
+            // دسکتاپ: Lenis فعاله، با اسکرول نرم خودش جلو می‌ریم
+            lenis.scrollTo(`#${link}`, {
+                offset: -70,
+                duration: 1.2,
+            });
+        } else {
+            // موبایل: Lenis مونت نشده (lenis === null) => اسکرول native
+            const target = document.getElementById(link);
+            if (target) {
+                const top =
+                    target.getBoundingClientRect().top + window.scrollY - 70;
+                window.scrollTo({ top, behavior: "smooth" });
+            }
+        }
 
         // Update the URL hash without triggering a native jump-scroll
         if (window.history && window.history.pushState) {
