@@ -11,7 +11,7 @@ import SectionNav from "@/components/layout/section-nav";
 export default function Home() {
     return (
         <div className="flex flex-col flex-1 items-center justify-center font-sans">
-            {/* <IntroOverlay text="Ali Seyedi" /> */}
+            <IntroOverlay text="Ali Seyedi" />
             <SectionNav />
             <ScrollToTop />
             <main className="flex items-center justify-center flex-col h-full max-w-6xl max-md:px-2">
