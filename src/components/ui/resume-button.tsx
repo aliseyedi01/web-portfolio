@@ -90,7 +90,7 @@ export function ResumeButton({
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: -6, scale: 0.97 }}
                             transition={{ duration: 0.15 }}
-                            className="absolute top-full mt-2 left-1/2 -translate-x-1/3 md:-translate-x-1/4 w-38 md:w-44 rounded-xl border border-blue-400/20 dark:border-blue-500/15 bg-white/90 dark:bg-background/90 backdrop-blur-xl shadow-lg shadow-blue-500/10 overflow-hidden z-50"
+                            className="absolute top-full mt-2 left-1/2 -translate-x-1/2 md:-translate-x-1/4 w-38 md:w-44 rounded-xl border border-blue-400/20 dark:border-blue-500/15 bg-white/90 dark:bg-background/90 backdrop-blur-xl shadow-lg shadow-blue-500/10 overflow-hidden z-50"
                         >
                             {/* View - opens shared preview modal */}
                             <button
