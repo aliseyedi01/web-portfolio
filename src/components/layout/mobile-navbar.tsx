@@ -16,10 +16,6 @@ import { navItems } from "@/data/navItems";
 // This matches the `fileName` prop already passed to <ResumeButton /> on desktop.
 const RESUME_FILE = "aliseyedi01-resume.pdf";
 
-// Tailwind's `sm` breakpoint (640px) — must match the `sm:hidden` class below,
-// since this component only "owns" --nav-height while it's the visible navbar.
-const MOBILE_BREAKPOINT = 640;
-
 export const MobileNavbar = () => {
     const [open, setOpen] = useState(false);
     const [resumeModalOpen, setResumeModalOpen] = useState(false);
@@ -29,9 +25,6 @@ export const MobileNavbar = () => {
 
     const topBarRef = useRef<HTMLDivElement>(null);
 
-    // روی موبایل، SmoothScrollProvider اصلاً <ReactLenis> رو رندر نمی‌کنه،
-    // پس این هوک روی موبایل همیشه null برمی‌گردونه. هر استفاده‌ای از lenis
-    // باید یک فالبک native scroll هم داشته باشه (پایین‌تر در handleNavClick).
     const lenis = useLenis();
 
     const resumePath = `/${RESUME_FILE}`;
@@ -61,39 +54,43 @@ export const MobileNavbar = () => {
     const handleNavClick = (link: string) => {
         setOpen(false);
 
-        // External route (e.g. "/blog") — just navigate, no scrolling involved
         if (link.startsWith("/")) {
             router.push(link);
             return;
         }
 
-        // We're on a different page — navigate home with the hash,
-        // the hash-scroll hook on the home page will handle scrolling there
         if (window.location.pathname !== "/") {
             router.push(`/#${link}`);
             return;
         }
 
-        if (lenis) {
-            // دسکتاپ: Lenis فعاله، با اسکرول نرم خودش جلو می‌ریم
-            lenis.scrollTo(`#${link}`, {
-                offset: -70,
-                duration: 1.2,
-            });
-        } else {
-            // موبایل: Lenis مونت نشده (lenis === null) => اسکرول native
+        const scroll = () => {
             const target = document.getElementById(link);
-            if (target) {
-                const top =
-                    target.getBoundingClientRect().top + window.scrollY - 70;
-                window.scrollTo({ top, behavior: "smooth" });
-            }
-        }
 
-        // Update the URL hash without triggering a native jump-scroll
-        if (window.history && window.history.pushState) {
-            window.history.pushState(null, "", `#${link}`);
-        }
+            if (!target) return;
+
+            if (lenis) {
+                lenis.scrollTo(target, {
+                    offset: -70,
+                    duration: 1.1,
+                });
+            } else {
+                const y =
+                    target.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    70;
+
+                window.scrollTo({
+                    top: y,
+                    behavior: "smooth",
+                });
+            }
+
+            window.history.replaceState(null, "", `#${link}`);
+        };
+
+        // صبر کن منو کامل بسته بشه
+        setTimeout(scroll, 260);
     };
 
     return (
