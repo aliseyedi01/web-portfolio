@@ -2,129 +2,198 @@
 
 import { motion } from "motion/react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export function BackgroundOrbs() {
     const { resolvedTheme } = useTheme();
+
     const [mounted, setMounted] = useState(false);
+    const [mobile, setMobile] = useState(false);
+    const [ready, setReady] = useState(false);
 
     useEffect(() => {
         setMounted(true);
+
+        const update = () => {
+            setMobile(window.innerWidth < 768);
+        };
+
+        update();
+
+        requestAnimationFrame(() => {
+            setReady(true);
+        });
+
+        window.addEventListener("resize", update);
+
+        return () => {
+            window.removeEventListener("resize", update);
+        };
     }, []);
 
     const isDark = !mounted || resolvedTheme === "dark";
 
+    const config = useMemo(
+        () => ({
+            blur: mobile ? 90 : 140,
+            auroraBlur: mobile ? 70 : 120,
+            move: mobile ? 35 : 90,
+            duration: mobile ? 38 : 28,
+        }),
+        [mobile],
+    );
+
+    if (!ready) {
+        return (
+            <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none" />
+        );
+    }
+
     return (
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-            {/* Aurora Gradient */}
+            {/* Aurora */}
             <motion.div
-                className="absolute left-[-20%] top-[-10%] h-[50rem] w-[70rem]"
+                className="
+                    absolute
+                    -left-[25%]
+                    top-[-8%]
+                    h-[24rem]
+                    w-[32rem]
+                    md:h-[52rem]
+                    md:w-[72rem]
+                    transform-gpu
+                    will-change-transform
+                "
                 style={{
                     background: isDark
-                        ? "linear-gradient(120deg, rgba(99,102,241,.15), rgba(139,92,246,.18), rgba(6,182,212,.15))"
-                        : "linear-gradient(120deg, rgba(236,72,153,.12), rgba(139,92,246,.10), rgba(59,130,246,.10))",
-                    filter: "blur(120px)",
+                        ? "linear-gradient(135deg, rgba(79,70,229,.18), rgba(139,92,246,.14), rgba(6,182,212,.12))"
+                        : "linear-gradient(135deg, rgba(236,72,153,.10), rgba(99,102,241,.08), rgba(59,130,246,.08))",
+                    filter: `blur(${config.auroraBlur}px)`,
                 }}
                 animate={{
-                    rotate: [0, 8, -5, 0],
-                    x: [0, 80, -40, 0],
-                    y: [0, 60, -30, 0],
+                    x: [0, config.move, -config.move / 2, 0],
+                    y: [0, config.move / 2, 0],
                 }}
                 transition={{
-                    duration: 25,
+                    duration: config.duration,
                     repeat: Infinity,
                     ease: "easeInOut",
                 }}
             />
 
-            {/* Blob 1 */}
+            {/* Orb 1 */}
             <motion.div
-                className="absolute -left-40 top-20 size-[38rem]"
+                className="
+                    absolute
+                    -left-32
+                    top-16
+                    size-[18rem]
+                    md:size-[40rem]
+                    rounded-full
+                    transform-gpu
+                    will-change-transform
+                "
                 style={{
                     background: isDark
-                        ? "rgba(59,130,246,.22)"
-                        : "rgba(236,72,153,.12)",
-                    filter: "blur(130px)",
-                    borderRadius: "42% 58% 65% 35% / 45% 40% 60% 55%",
+                        ? "rgba(59,130,246,.18)"
+                        : "rgba(236,72,153,.10)",
+                    filter: `blur(${config.blur}px)`,
                 }}
                 animate={{
-                    x: [0, 120, -40, 0],
-                    y: [0, 80, 120, 0],
-                    borderRadius: [
-                        "42% 58% 65% 35% / 45% 40% 60% 55%",
-                        "60% 40% 30% 70% / 55% 65% 35% 45%",
-                        "42% 58% 65% 35% / 45% 40% 60% 55%",
-                    ],
+                    x: [0, config.move, 0],
+                    y: [0, config.move * 0.6, 0],
                 }}
                 transition={{
-                    duration: 28,
+                    duration: config.duration,
                     repeat: Infinity,
                     ease: "easeInOut",
                 }}
             />
 
-            {/* Blob 2 */}
+            {/* Orb 2 */}
             <motion.div
-                className="absolute right-[-10rem] top-[20%] size-[42rem]"
+                className="
+                    absolute
+                    right-[-5rem]
+                    top-[20%]
+                    size-[20rem]
+                    md:size-[42rem]
+                    rounded-full
+                    transform-gpu
+                    will-change-transform
+                "
                 style={{
                     background: isDark
-                        ? "rgba(139,92,246,.18)"
-                        : "rgba(59,130,246,.10)",
-                    filter: "blur(150px)",
-                    borderRadius: "60% 40% 55% 45% / 45% 55% 45% 55%",
+                        ? "rgba(139,92,246,.16)"
+                        : "rgba(99,102,241,.08)",
+                    filter: `blur(${config.blur}px)`,
                 }}
                 animate={{
-                    x: [0, -90, 30, 0],
-                    y: [0, 50, -40, 0],
+                    x: [0, -config.move, 0],
+                    y: [0, config.move * 0.5, 0],
                 }}
                 transition={{
-                    duration: 30,
+                    duration: config.duration + 8,
                     repeat: Infinity,
                     ease: "easeInOut",
                 }}
             />
 
-            {/* Blob 3 */}
-            <motion.div
-                className="absolute bottom-[-15rem] left-1/3 size-[36rem]"
-                style={{
-                    background: isDark
-                        ? "rgba(6,182,212,.16)"
-                        : "rgba(139,92,246,.08)",
-                    filter: "blur(140px)",
-                    borderRadius: "50% 50% 38% 62% / 60% 40% 60% 40%",
-                }}
-                animate={{
-                    x: [0, 60, -70, 0],
-                    y: [0, -50, 30, 0],
-                }}
-                transition={{
-                    duration: 24,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-            />
+            {ready && !mobile && (
+                <motion.div
+                    className="
+                        absolute
+                        bottom-[-12rem]
+                        left-1/3
+                        size-[34rem]
+                        rounded-full
+                        transform-gpu
+                        will-change-transform
+                    "
+                    style={{
+                        background: "rgba(6,182,212,.12)",
+                        filter: `blur(${config.blur}px)`,
+                    }}
+                    animate={{
+                        x: [0, 60, -40, 0],
+                        y: [0, -40, 0],
+                    }}
+                    transition={{
+                        duration: 32,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                    }}
+                />
+            )}
 
             {/* Grid */}
             <div
-                className="absolute inset-0"
+                className="absolute inset-0 opacity-60"
                 style={{
                     backgroundImage: `
                         linear-gradient(
-                            ${isDark ? "rgba(255,255,255,0.05)" : "rgba(99,102,241,0.08)"} 1px,
+                            ${
+                                isDark
+                                    ? "rgba(255,255,255,.035)"
+                                    : "rgba(99,102,241,.05)"
+                            } 1px,
                             transparent 1px
                         ),
                         linear-gradient(
                             90deg,
-                            ${isDark ? "rgba(255,255,255,0.05)" : "rgba(99,102,241,0.08)"} 1px,
+                            ${
+                                isDark
+                                    ? "rgba(255,255,255,.035)"
+                                    : "rgba(99,102,241,.05)"
+                            } 1px,
                             transparent 1px
                         )
                     `,
-                    backgroundSize: "64px 64px",
+                    backgroundSize: mobile ? "72px 72px" : "64px 64px",
                     maskImage:
-                        "radial-gradient(circle at center, black, transparent 85%)",
+                        "radial-gradient(circle at center, black, transparent 90%)",
                     WebkitMaskImage:
-                        "radial-gradient(circle at center, black, transparent 85%)",
+                        "radial-gradient(circle at center, black, transparent 90%)",
                 }}
             />
         </div>
